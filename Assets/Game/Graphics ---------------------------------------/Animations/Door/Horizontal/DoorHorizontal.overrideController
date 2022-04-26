@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DoorHorizontal
+  m_Controller: {fileID: 9100000, guid: 561721702e3dad247b9b8f7c1ed001f0, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: bda3caf73318af14d88af779761f7f91, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1c8501497e325274c901e0611ce025be, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bd0b714c537e78b42bfdc1c2e8bba9cc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 483ac94e158cf1a4fa10694f4f4255b0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 51b55ed85785f3c45b2d742ef3d5d49c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f8be16728c8e12c4b91088373bb1bf38, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 214eea32e39fab8459292c7da42d13aa, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 91a2a5246865e7742becd683b5713a00, type: 2}
