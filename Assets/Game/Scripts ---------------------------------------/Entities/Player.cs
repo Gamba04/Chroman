@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IHittable
 
     [SerializeField]
     private bool allowHacks;
+
     [Header("Components")]
     [SerializeField]
     private Rigidbody2D rb;
@@ -62,6 +63,13 @@ public class Player : MonoBehaviour, IHittable
     private float colorTransitionDuration;
     [SerializeField]
     private AnimationCurve deathcurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 0));
+
+    [GambaHeader("Magnet", 0.5f, 0.5f, 0.5f, 1f)]
+    [SerializeField]
+    private float magnetRange = 5;
+    [SerializeField]
+    private LayerMask magnetLayers;
+
     [GambaHeader("Stats", 1f, 0.3f, 0.1f, 1f)]
     [SerializeField]
     private float health;
@@ -79,6 +87,7 @@ public class Player : MonoBehaviour, IHittable
     private float knockback;
     [SerializeField]
     private int unlockedColors;
+
     [GambaHeader("Movement")]
     [SerializeField]
     private float moveAcceleration;
@@ -96,6 +105,7 @@ public class Player : MonoBehaviour, IHittable
     private float defaultMass = 5;
     [SerializeField]
     private float dashMass = 10;
+
     [GambaHeader("Cooldowns")]
     [SerializeField]
     [Range(0.1f, 2)]
@@ -118,6 +128,7 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField]
     [Range(0.1f, 2)]
     private float deathDuration;
+
     [Header("Transitions")]
     [SerializeField]
     private Transition kineticCloudTransition;
@@ -137,11 +148,13 @@ public class Player : MonoBehaviour, IHittable
     private Vector2 externalMomentum;
     [ReadOnly, SerializeField]
     private bool isInvincible;
+
     [GambaHeader("Inputs", 0.7f)]
     [ReadOnly, SerializeField]
     private Vector2 moveAxis;
     [ReadOnly, SerializeField]
     private Vector2 direction;
+
     [GambaHeader("Colors", 0.7f)]
     [ReadOnly, SerializeField]
     private Color color_Melee;
@@ -234,6 +247,7 @@ public class Player : MonoBehaviour, IHittable
                 CooldownUpdate();
                 ColorUpdate();
                 AttackColliderUpdate();
+                MagnetUpdate();
 
                 MainBehaviour();
 
@@ -974,6 +988,29 @@ public class Player : MonoBehaviour, IHittable
                     }
                 }
             }
+        }
+    }
+
+    private void MagnetUpdate()
+    {
+        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, magnetRange, magnetLayers);
+
+        List<IMagnetable> magnets = new List<IMagnetable>(); 
+
+        // Get IMagnetable entities
+        for (int i = 0; i < targets.Length; i++)
+        {
+            IMagnetable magnet = targets[i]?.attachedRigidbody?.GetComponent<IMagnetable>();
+
+            if (magnet != null) magnets.Add(magnet);
+        }
+
+        foreach (IMagnetable magnet in magnets)
+        {
+            Vector2 attractionDir = transform.position - magnet.mRigidBody.transform.position;
+
+            // Attract
+            magnet.mRigidBody.velocity += attractionDir.normalized * magnet.mAttractionForce / attractionDir.magnitude;
         }
     }
 

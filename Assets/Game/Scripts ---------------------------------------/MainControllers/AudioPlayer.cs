@@ -279,9 +279,10 @@ public class AudioPlayer : MonoBehaviour
     void Update()
     {
         SFXLoopUpdate();
+        UpdateCacheSFX();
     }
 
-    #region Updates
+    #region Update
 
     private void SFXLoopUpdate()
     {
@@ -376,6 +377,16 @@ public class AudioPlayer : MonoBehaviour
                 sfxLoopAudioSources[i].volume = sfxLoopClips[i].enabled? sfxLoopClips[i].volume : 0;
                 sfxLoopAudioSources[i].outputAudioMixerGroup = GetTargetMixerGroup(sfxLoopClips[i].targetMixer);
             }
+        }
+    }
+
+    private void UpdateCacheSFX()
+    {
+        for (int i = 0; i < cacheSFX.Count; i++)
+        {
+            CacheSFX cache = cacheSFX[i];
+
+            Timer.ReduceCooldown(ref cache.timer, () => cacheSFX.Remove(cache));
         }
     }
 
