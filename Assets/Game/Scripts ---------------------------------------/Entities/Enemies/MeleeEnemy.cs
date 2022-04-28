@@ -26,6 +26,8 @@ public class MeleeEnemy : Enemy, IKinetic
 
     private CollisionInfo lastCollision;
 
+    private Vector2 dashDirection;
+
     protected override void Start()
     {
         base.Start();
@@ -81,9 +83,16 @@ public class MeleeEnemy : Enemy, IKinetic
         }
     }
 
+    protected override void Attack()
+    {
+        base.Attack();
+
+        dashDirection = player.transform.position - kTransform.position;
+    }
+
     protected override void Hit()
     {
-        StartDash(player.transform.position - kTransform.position);
+        StartDash(dashDirection);
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.MeleeEnemy, kTransform.position);
         targetSawSpeed = sawAttackSpeed;
     }

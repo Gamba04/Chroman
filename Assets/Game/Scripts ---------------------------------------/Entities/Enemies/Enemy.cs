@@ -492,6 +492,7 @@ public class Enemy : MonoBehaviour, IHittable
         }
         Debug.DrawLine(target, transform.position);
     }
+
     private void Returning()
     {
         if (IsInLineOfSight(initialPos))
@@ -509,6 +510,7 @@ public class Enemy : MonoBehaviour, IHittable
     {
         Move((player.transform.position - transform.position).normalized);
     }
+
     private void Attacking()
     {
         Move(Vector2.zero);
@@ -523,6 +525,7 @@ public class Enemy : MonoBehaviour, IHittable
 
         direction = (player.transform.position - transform.position);
     }
+
     private void Searching()
     {
         if (IsInLineOfSight(lastPlayerPos))
@@ -630,7 +633,7 @@ public class Enemy : MonoBehaviour, IHittable
         }
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         anim.SetBool("Cancel", false);
         anim.SetTrigger("Attack");
