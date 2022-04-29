@@ -995,22 +995,16 @@ public class Player : MonoBehaviour, IHittable
     {
         Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, magnetRange, magnetLayers);
 
-        List<IMagnetable> magnets = new List<IMagnetable>(); 
-
-        // Get IMagnetable entities
         for (int i = 0; i < targets.Length; i++)
         {
-            IMagnetable magnet = targets[i]?.attachedRigidbody?.GetComponent<IMagnetable>();
+            Magnetable magnet = targets[i]?.attachedRigidbody?.GetComponent<Magnetable>();
 
-            if (magnet != null) magnets.Add(magnet);
-        }
+            if (magnet != null)
+            {
+                Vector2 attractionVector = transform.position - magnet.transform.position;
 
-        foreach (IMagnetable magnet in magnets)
-        {
-            Vector2 attractionDir = transform.position - magnet.mRigidBody.transform.position;
-
-            // Attract
-            magnet.mRigidBody.velocity += attractionDir.normalized * magnet.mAttractionForce / attractionDir.magnitude;
+                magnet.Attract(attractionVector);
+            }
         }
     }
 
