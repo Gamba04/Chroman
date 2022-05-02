@@ -74,6 +74,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  doubleSoundsSeparation: 0.05
   sfxClips:
   - name: 'Death : death'
     clip: {fileID: 8300000, guid: 224689d48f8350e4fb15a23e474a40de, type: 3}
@@ -213,8 +214,8 @@ MonoBehaviour:
     spatialBlend: 0
     spatialRange: 5
     targetMixer: 0
-  - name: 'DashAvailable : Dash Click'
-    clip: {fileID: 8300000, guid: 4785a813cbfc76443b554a85e3323e84, type: 3}
+  - name: 'DashAvailable : null'
+    clip: {fileID: 0}
     volume: 0.804
     spatialBlend: 0
     spatialRange: 5
@@ -287,10 +288,11 @@ MonoBehaviour:
     transitionDuration: 0
     targetMixer: 0
     enabled: 0
-    onTransition: 0
+    isOnTransition: 0
     weight: 0
   sfxLoopAudioSources:
   - {fileID: 380405321448551808}
+  cacheSFX: []
 --- !u!82 &380405320483476545
 AudioSource:
   m_ObjectHideFlags: 0

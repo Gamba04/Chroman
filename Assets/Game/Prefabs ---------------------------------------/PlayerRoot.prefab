@@ -5243,7 +5243,7 @@ MonoBehaviour:
   defaultMass: 5
   dashMass: 10
   maxCooldown_Invincible: 1
-  maxCooldown_Dash: 1
+  maxCooldown_Dash: 0.6
   maxCooldown_Melee: 0.4
   maxCooldown_Range: 0.3
   maxCooldown_Kinetic: 0.1
