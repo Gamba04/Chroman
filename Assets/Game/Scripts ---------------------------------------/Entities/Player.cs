@@ -917,6 +917,29 @@ public class Player : MonoBehaviour, IHittable
 
     }
 
+    private void AttackColliderUpdate()
+    {
+        if (attackCollider)
+        {
+            Collider2D[] targets = Physics2D.OverlapCircleAll((Vector2)transform.position + direction.normalized * 0.8f, 1f, LayerMask.GetMask("Hittable", "Enemy", "Boss"));
+
+            for (int i = 0; i < targets.Length; i++)
+            {
+                IHittable hit = targets[i]?.attachedRigidbody?.GetComponent<IHittable>();
+
+                if (hit != null)
+                {
+                    if (!hit.AvoidingLayer(gameObject.layer))
+                    {
+                        hit.OnHit(transform.position, meleeDamage, knockback, gameObject.layer);
+                        onDamageDealt?.Invoke(meleeDamage * hit.LifeRegenMultiplier);
+                        attackCollider = false;
+                    }
+                }
+            }
+        }
+    }
+
     #endregion
 
     #region OtherMechanics
@@ -968,36 +991,13 @@ public class Player : MonoBehaviour, IHittable
         sr.transform.rotation = Quaternion.LookRotation(Vector3.forward, direction);
     }
 
-    private void AttackColliderUpdate()
-    {
-        if (attackCollider)
-        {
-            Collider2D[] targets = Physics2D.OverlapCircleAll((Vector2)transform.position + direction.normalized * 0.8f, 1f, LayerMask.GetMask("Hittable", "Enemy", "Boss"));
-
-            for (int i = 0; i < targets.Length; i++)
-            {
-                IHittable hit = targets[i]?.attachedRigidbody?.GetComponent<IHittable>();
-
-                if (hit != null)
-                {
-                    if (!hit.AvoidingLayer(gameObject.layer))
-                    {
-                        hit.OnHit(transform.position, meleeDamage, knockback, gameObject.layer);
-                        onDamageDealt?.Invoke(meleeDamage * hit.LifeRegenMultiplier);
-                        attackCollider = false;
-                    }
-                }
-            }
-        }
-    }
-
     private void MagnetUpdate()
     {
         Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, magnetRange, magnetLayers);
 
         for (int i = 0; i < targets.Length; i++)
         {
-            Magnetable magnet = targets[i]?.attachedRigidbody?.GetComponent<Magnetable>();
+            Magnetic magnet = targets[i]?.attachedRigidbody?.GetComponent<Magnetic>();
 
             if (magnet != null)
             {

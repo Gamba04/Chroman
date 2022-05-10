@@ -206,14 +206,15 @@ public class PauseController : MonoBehaviour
 
         public void UpdateAlpha()
         {
-            if (graphic != null)
-            {
-                defaultGraphicAlpha = graphic.color.a;
-            }
+            if (graphic == null) return;
+
+            defaultGraphicAlpha = graphic.color.a;
         }
 
         public void SetAlpha(float value)
         {
+            if (graphic == null) return;
+
             Color color = graphic.color;
 
             color.a = value * defaultGraphicAlpha;

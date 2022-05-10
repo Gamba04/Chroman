@@ -13,6 +13,8 @@ public class Box : MonoBehaviour, IHittable
     protected Rigidbody2D rb;
     [SerializeField]
     protected Collider2D collider;
+    [SerializeField]
+    private GameObject healPrefab;
 
     [Header("Settings")]
     [SerializeField]
@@ -30,6 +32,11 @@ public class Box : MonoBehaviour, IHittable
     private AnimationCurve deathcurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 0));
     [SerializeField]
     private Color originalColor;
+    [SerializeField]
+    private int healSpawns;
+    [SerializeField]
+    private float healSpawnRange = 0.25f;
+
     //[SerializeField]
     //private UnityEvent onDeath;
 
@@ -126,7 +133,26 @@ public class Box : MonoBehaviour, IHittable
     protected virtual void Die()
     {
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.BoxDead);
+
+        SpawnHeals();
     }
+
+    private void SpawnHeals()
+    {
+        for (int i = 0; i < healSpawns; i++)
+        {
+            SpawnRandomHeal();
+        }
+    }
+
+    private void SpawnRandomHeal()
+    {
+        GameObject heal = Instantiate(healPrefab, GameManager.ParentHeals);
+        heal.name = healPrefab.name;
+        heal.transform.position = transform.position + GetRandomPos();
+    }
+
+    private Vector3 GetRandomPos() => new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * healSpawnRange;
 
     #endregion
 

@@ -395,6 +395,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Platform targetPlatform;
+
     [Header("Components")]
     [SerializeField]
     private Player player;
@@ -432,6 +433,7 @@ public class GameManager : MonoBehaviour
     private GameObject winText;
     [SerializeField]
     private GameObject heavyWorldObjects;
+
     [Header("Pause Menu")]
     [SerializeField]
     private PauseController pauseController;
@@ -443,6 +445,7 @@ public class GameManager : MonoBehaviour
     private LightingPostProcess postProcess;
     [SerializeField]
     private GameObject fpsCounter;
+
     [Header("Boss Health")]
     [SerializeField]
     private Animator bossHealthBarAnim;
@@ -452,11 +455,13 @@ public class GameManager : MonoBehaviour
     private Image bossHealthBarMainFill;
     [SerializeField]
     private Image bossHealthBarBGFill;
+
     [Header("Data Management")]
     [SerializeField]
     private DataPack savedData;
     [SerializeField]
     private List<GameObject> sceneObjects;
+
     [Header("Parents")]
     [SerializeField]
     private Transform parentBullets;
@@ -466,6 +471,8 @@ public class GameManager : MonoBehaviour
     private Transform parentGhosting;
     [SerializeField]
     private Transform parentHeartsUI;
+    [SerializeField]
+    private Transform parentHeals;
 
     [GambaHeader("Settings ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------", 0, 0, 0, 0.4f)]
     [SerializeField]
@@ -475,6 +482,7 @@ public class GameManager : MonoBehaviour
     private float damageScreenIncrement = 0.3f;
     [SerializeField]
     private float squrFarDistance = 800;
+
     [Header("HeartsUI")]
     [SerializeField]
     private float damagePerLifeRegen = 100;
@@ -484,9 +492,11 @@ public class GameManager : MonoBehaviour
     private Sprite heartSprite;
     [SerializeField]
     private Vector2 heartsInitialPos = new Vector2 (20,0);
+
     [Header("Pause")]
     [SerializeField]
     private Transition hudTransition;
+
     [Header("Audio Mixer Transitions")]
     [SerializeField]
     private Transition lowPassFilterTransition;
@@ -499,6 +509,7 @@ public class GameManager : MonoBehaviour
     private Transition pauseVolumeTransition;
     [SerializeField]
     private float pauseLowValue = 0.5f;
+
     [Header("Blur Transition")]
     [SerializeField]
     private Transition blurTransition;
@@ -544,12 +555,14 @@ public class GameManager : MonoBehaviour
             Instance.postProcess.renderResolutionScale = renderResolutionScale;
         }
     }
+
     public static float MasterVolume { get => masterVolume * muteSoundMult; set => masterVolume = value; }
     public static bool reloading { get; private set; }
     public static bool GamePaused { get; private set; }
     public static Player Player => Instance?.player; 
     public static Transform ParentBullets => Instance?.parentBullets; 
     public static Transform ParentGhosting => Instance?.parentGhosting; 
+    public static Transform ParentHeals => Instance?.parentHeals; 
     public static Canvas Canvas => Instance?.canvas;
     public static CameraController CameraController => Instance?.cameraController;
 
@@ -824,12 +837,11 @@ public class GameManager : MonoBehaviour
 
     private void OnDamageDealt(float damageDealt)
     {
-        if (player.Health < Player.MaxHealth)
-        {
-            heartRegenState += damageDealt / damagePerLifeRegen;
-        }
-
-        UpdateHeartRegen();
+        //if (player.Health < Player.MaxHealth)
+        //{
+        //    heartRegenState += damageDealt / damagePerLifeRegen;
+        //    UpdateHeartRegen();
+        //}
     }
 
     private void UpdateHeartRegen()
@@ -841,6 +853,7 @@ public class GameManager : MonoBehaviour
         else
         {
             heartRegenUI.enabled = true;
+
             if (heartRegenState > 0 && player.Health == Player.MaxHealth)
             {
                 heartRegenState = 0;
@@ -1224,6 +1237,16 @@ public class GameManager : MonoBehaviour
     {
         Instance.fadeAnim.speed = playbackSpeed;
         Instance.fadeAnim.SetBool("Visible", enable);
+    }
+
+    public static void Heal(float amount)
+    {
+        if (Player.Health < Player.MaxHealth)
+        {
+            Instance.heartRegenState += amount;
+
+            Instance.UpdateHeartRegen();
+        }
     }
 
     #endregion

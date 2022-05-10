@@ -322,4 +322,21 @@ public class Bullet : MonoBehaviour, IKinetic
 
     #endregion
 
+    // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    #region Editor
+
+#if UNITY_EDITOR
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 1, 0);
+
+        Gizmos.DrawWireSphere(transform.position, hitboxRadius);
+    }
+
+#endif
+
+    #endregion
+
 }
