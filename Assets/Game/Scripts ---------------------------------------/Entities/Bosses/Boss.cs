@@ -188,7 +188,6 @@ public class Boss : MonoBehaviour
 
     public virtual void ResetBoss()
     {
-        awakened = false;
         dead = false;
         anim.SetBool("Sleeping", true);
         transform.position = spawnPosition;
@@ -198,6 +197,8 @@ public class Boss : MonoBehaviour
         health = maxHealth;
 
         UpdateHealthState();
+
+        awakened = false;
     }
 
     public virtual void StealCamera()
@@ -261,6 +262,7 @@ public class Boss : MonoBehaviour
     public void UpdateHealthState()
     {
         int division = CurrentHealthDivision;
+
         if (division != lastHealthDivision)
         {
             lastHealthDivision = division;

@@ -5144,7 +5144,7 @@ MonoBehaviour:
   sawPrefab: {fileID: 6903456013675344918, guid: d9c01fc7ee228d848a0f3362399776d9,
     type: 3}
   cannonsParent: {fileID: 6728828650024769578}
-  maxSpawnedEnemies: 10
+  maxSpawnedEnemies: 5
   ghostingSprite: {fileID: 21300000, guid: cc36384b90ac8034db67285b6ec3c581, type: 3}
   cannonsRotationSpeed: 30
   damageColor: {r: 1, g: 0.2688679, b: 0.2688679, a: 0.78431374}

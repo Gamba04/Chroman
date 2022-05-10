@@ -682,7 +682,6 @@ public class Boss1 : Boss, IHittable
         DashExit();
         StunnedExit();
         DestroySpawnedEnemies();
-        UpdateHealthState();
     }
 
     public void EnableDamageOnContact()
@@ -926,6 +925,7 @@ public class Boss1 : Boss, IHittable
             {
                 SpawnEnemy();
             }
+
             yield return new WaitForSeconds(1f / rateOfSpawn);
         }
     }
