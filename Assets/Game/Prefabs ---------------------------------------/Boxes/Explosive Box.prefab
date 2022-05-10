@@ -46,7 +46,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.4
+  m_Radius: 3.3
 --- !u!1 &8774699691154302971
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   light: {fileID: 1527892741254264539}
   defaultMass: 30
   grabbedMass: 5
-  environmentDamage: 10
+  environmentDamage: 6
   playerDamage: 1
   hitLayers:
     serializedVersion: 2
