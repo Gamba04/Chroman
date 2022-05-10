@@ -5231,7 +5231,7 @@ MonoBehaviour:
   meleeDamage: 2
   bulletDamage: 1
   kineticForce: 20
-  kineticRigidity: 13
+  kineticRigidity: 20
   kineticCloudRange: 3
   knockback: 20
   unlockedColors: 0
