@@ -8,6 +8,7 @@ public class TriggerCollider : MonoBehaviour
     [Header("Components")]
     [SerializeField]
     private Collider2D collider;
+
     [Header("Settings")]
     [SerializeField]
     private UnityEvent onTrigger;
@@ -16,7 +17,9 @@ public class TriggerCollider : MonoBehaviour
     [SerializeField]
     private LayerMask detectionLayers;
 
-    void Update()
+    private bool inside;
+
+    private void Update()
     {
         CollisionDetection();
     }
@@ -33,13 +36,19 @@ public class TriggerCollider : MonoBehaviour
 
             if (Physics2D.OverlapCollider(collider, filter, results) > 0)
             {
-                onTrigger?.Invoke();
-
-                if (deactivateOnCollision)
+                if (!inside)
                 {
-                    collider.enabled = false;
+                    inside = true;
+
+                    onTrigger?.Invoke();
+
+                    if (deactivateOnCollision)
+                    {
+                        collider.enabled = false;
+                    }
                 }
             }
+            else inside = false;
         }
     }
 }

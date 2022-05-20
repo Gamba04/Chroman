@@ -5223,7 +5223,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  magnetRange: 4
+  magnetRange: 5
   magnetLayers:
     serializedVersion: 2
     m_Bits: 1048577

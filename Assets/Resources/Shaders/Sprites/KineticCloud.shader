@@ -8,8 +8,8 @@
     {
         Tags
     {
-        "RenderType" = "Opaque"
-        "Queue" = "Transparent"
+        "RenderType" = "Transparent"
+        "Queue" = "Transparent+1"
     }
 
         Cull Off
@@ -19,7 +19,7 @@
 
         GrabPass
         {
-            "_UnderlyingColor"
+            
         }
 
         Pass
@@ -48,7 +48,7 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            sampler2D _UnderlyingColor;
+            sampler2D _GrabTexture;
             float _AlphaSplitEnabled;
             float _XRatio;
             float _CameraZoom;
@@ -77,7 +77,7 @@
                 distortion = float2(distortion.x/ _XRatio, distortion.y);
                 grabPos.xy += distortion * grabPos.z;
 
-                fixed4 under = tex2Dproj(_UnderlyingColor, grabPos);
+                fixed4 under = tex2Dproj(_GrabTexture, grabPos);
 
                 col += (under - col) * col.a;
 
