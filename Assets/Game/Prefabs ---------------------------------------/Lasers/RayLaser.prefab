@@ -9946,7 +9946,7 @@ MonoBehaviour:
   damage: 1
   colorTag: 0
   respondToTag: 0
-  distanceMultiplier: 1
+  distanceMultiplier: 2
   posA: {x: 0, y: 0}
   posB: {x: 1, y: 0}
   activated: 1

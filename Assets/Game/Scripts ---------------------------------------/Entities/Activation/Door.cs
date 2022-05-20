@@ -26,12 +26,12 @@ public class Door : MonoBehaviour
 
     public void SetOpen(bool value)
     {
-        if (++points >= amountOfPointsToCall)
+        if (open != value && ++points >= amountOfPointsToCall)
         {
+            points = 0;
+
             open = value;
             anim.SetBool("Open", value);
-
-            points = 0;
 
             if (value)
             {

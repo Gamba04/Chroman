@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,11 +10,15 @@ public class DynamicWall : MonoBehaviour, IKinetic
     private Rigidbody2D rb;
     [SerializeField]
     private Collider2D debugCollider;
+
     [Header("Settings")]
     [SerializeField]
     private float grabbedMass = 5;
     [SerializeField]
     private float defaultMass = 500;
+    [SerializeField]
+    private float throwTime = 0.2f;
+
     [GambaHeader("Cloud")]
     [SerializeField]
     private Vector2 size = Vector2.one;
@@ -27,6 +32,8 @@ public class DynamicWall : MonoBehaviour, IKinetic
 
     private Vector2 lastValidPosition;
     private Quaternion lastValidRotation;
+
+    private event Action onKineticGrab;
 
     // Wall Detection
     ContactFilter2D filter = new ContactFilter2D();
@@ -73,6 +80,8 @@ public class DynamicWall : MonoBehaviour, IKinetic
     {
         rb.mass = grabbedMass;
         rb.bodyType = RigidbodyType2D.Dynamic;
+
+        onKineticGrab?.Invoke();
     }
 
     public void Throw(Vector2 direction, float force)
@@ -81,7 +90,7 @@ public class DynamicWall : MonoBehaviour, IKinetic
 
         rb.mass = defaultMass;
 
-        Timer.CallOnDelay(() => rb.bodyType = RigidbodyType2D.Static, 1f);
+        Timer.CallOnDelay(() => rb.bodyType = RigidbodyType2D.Static, throwTime, ref onKineticGrab, "Throw dynamic wall");
     }
 
     public void Unleash()

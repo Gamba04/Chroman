@@ -419,6 +419,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lightDefaultColor: {r: 0.27058825, g: 1, b: 0.7294118, a: 0.78431374}
+  healSpawns: 3
+  healSpawnRange: 0.25
   moveAcceleration: 100
   moveDeacceleration: 10
   moveSpeed: 3
@@ -429,24 +431,24 @@ MonoBehaviour:
   wanderingRange: 3
   pursuingRange: 8
   attackingRange: 7
+  debugs: 0
   state: 0
+  lockStateChange: 0
   player: {fileID: 0}
-  initialPos: {x: 0, y: 0}
-  lastPlayerPos: {x: 0, y: 0}
+  distanceToPlayer: 0
   isInLineOfSight: 0
   isMoving: 0
-  distanceToPlayer: 0
+  velocityMagnitude: 0
   velocity: {x: 0, y: 0}
-  externalMomentum: {x: 0, y: 0}
-  debugs: 0
-  currentNode: 0
+  dead: 0
+  isInsideOfSolidWall: 0
+  isInsideOfWall: 0
   attackCooldown: 0
   subAttackCooldown: 0
-  dashDirection: {x: 0, y: 0}
   health: 6
   damage: 1
   noMovementCooldown: 0
-  velocityMagnitude: 0
+  currentNode: 0
   nodes: []
   target: {x: 0, y: 0}
   bulletPrefab: {fileID: 7148874927001523693, guid: 381743b1ae03bc04eaff5bb8c8669a03,
@@ -5396,8 +5398,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
-      propertyPath: m_Color.r
-      value: 0.27058828
+      propertyPath: m_Color.b
+      value: 0.7284961
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
@@ -5406,8 +5408,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
-      propertyPath: m_Color.b
-      value: 0.7284961
+      propertyPath: m_Color.r
+      value: 0.27058828
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
@@ -5426,6 +5433,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -5438,16 +5450,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
