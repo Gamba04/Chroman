@@ -5151,6 +5151,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lightDefaultColor: {r: 1, g: 0.41960785, b: 0.41960785, a: 0.78431374}
+  healSpawns: 5
+  healSpawnRange: 0.25
   moveAcceleration: 100
   moveDeacceleration: 10
   moveSpeed: 4
@@ -5389,8 +5391,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: m_Color.b
+      value: 0.4198113
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
@@ -5399,8 +5401,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
-      propertyPath: m_Color.b
-      value: 0.4198113
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
@@ -5419,6 +5426,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -5431,16 +5443,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}

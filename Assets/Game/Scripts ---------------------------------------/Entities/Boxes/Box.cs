@@ -12,9 +12,7 @@ public class Box : MonoBehaviour, IHittable
     [SerializeField]
     protected Rigidbody2D rb;
     [SerializeField]
-    protected Collider2D collider;
-    [SerializeField]
-    private GameObject healPrefab;
+    protected new Collider2D collider;
 
     [Header("Settings")]
     [SerializeField]
@@ -36,9 +34,6 @@ public class Box : MonoBehaviour, IHittable
     private int healSpawns;
     [SerializeField]
     private float healSpawnRange = 0.25f;
-
-    //[SerializeField]
-    //private UnityEvent onDeath;
 
     private float damageCooldown;
 
@@ -134,25 +129,8 @@ public class Box : MonoBehaviour, IHittable
     {
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.BoxDead);
 
-        SpawnHeals();
+        GameManager.SpawnHealsAtPos(healSpawns, transform.position, healSpawnRange);
     }
-
-    private void SpawnHeals()
-    {
-        for (int i = 0; i < healSpawns; i++)
-        {
-            SpawnRandomHeal();
-        }
-    }
-
-    private void SpawnRandomHeal()
-    {
-        GameObject heal = Instantiate(healPrefab, GameManager.ParentHeals);
-        heal.name = healPrefab.name;
-        heal.transform.position = transform.position + GetRandomPos();
-    }
-
-    private Vector3 GetRandomPos() => new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)) * healSpawnRange;
 
     #endregion
 

@@ -433,6 +433,8 @@ public class GameManager : MonoBehaviour
     private GameObject winText;
     [SerializeField]
     private GameObject heavyWorldObjects;
+    [SerializeField]
+    private GameObject healPrefab;
 
     [Header("Pause Menu")]
     [SerializeField]
@@ -1249,6 +1251,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public static void SpawnHealsAtPos(int amount, Vector3 position, float radius) => Instance.SpawnHeals(amount, position, radius);
+
     #endregion
 
     // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1263,12 +1267,6 @@ public class GameManager : MonoBehaviour
         cancelDeathScreenRespawn?.Invoke();
 
         deathScreenAnim.SetTrigger("Skip");
-    }
-
-    private void SkipCutscene()
-    {
-        skippable = false;
-
     }
 
     private void TransitionsUpdate()
@@ -1391,6 +1389,24 @@ public class GameManager : MonoBehaviour
 
         onComplete?.Invoke();
     }
+
+    private void SpawnHeals(int amount, Vector2 position, float radius)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            SpawnRandomHeal(position, radius);
+        }
+    }
+
+    private void SpawnRandomHeal(Vector2 position, float radius)
+    {
+        GameObject heal = Instantiate(healPrefab, parentHeals);
+
+        heal.name = healPrefab.name;
+        heal.transform.position = (Vector3)position + GetRandomPos(radius);
+    }
+
+    private Vector3 GetRandomPos(float radius) => new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)).normalized * UnityEngine.Random.Range(0, 1) * radius;
 
     #endregion
 

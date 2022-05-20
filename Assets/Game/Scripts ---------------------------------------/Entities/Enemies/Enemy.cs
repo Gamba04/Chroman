@@ -27,9 +27,9 @@ public class Enemy : MonoBehaviour, IHittable
     [SerializeField]
     private ParticleSystem explosion;
     [SerializeField]
-    protected Collider2D collider;
+    protected new Collider2D collider;
     [SerializeField]
-    protected SpriteRenderer light;
+    protected new SpriteRenderer light;
     [SerializeField]
     protected Ghosting ghosting;
     [SerializeField]
@@ -52,6 +52,10 @@ public class Enemy : MonoBehaviour, IHittable
     private UnityEvent onDeadEvent;
     [SerializeField]
     protected Color lightDefaultColor = Color.white;
+    [SerializeField]
+    private int healSpawns;
+    [SerializeField]
+    private float healSpawnRange = 0.25f;
     [GambaHeader("Movement")]
     [SerializeField]
     private float moveAcceleration = 100;
@@ -778,6 +782,7 @@ public class Enemy : MonoBehaviour, IHittable
         sr.enabled = false;
         collider.enabled = false;
         rb.bodyType = RigidbodyType2D.Static;
+
         foreach (SpriteRenderer w in whiteSprites)
         {
             w.enabled = false;
@@ -788,6 +793,8 @@ public class Enemy : MonoBehaviour, IHittable
         dead = true;
 
         onDeadEvent?.Invoke();
+
+        GameManager.SpawnHealsAtPos(healSpawns, transform.position, healSpawnRange);
     }
 
     #endregion
