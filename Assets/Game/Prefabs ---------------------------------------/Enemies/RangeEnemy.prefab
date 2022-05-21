@@ -428,7 +428,7 @@ MonoBehaviour:
   externalFriction: 0.45
   dashSpeed: 0
   dashDuration: 0
-  wanderingRange: 3
+  wanderingRange: 2
   pursuingRange: 8
   attackingRange: 7
   debugs: 0
