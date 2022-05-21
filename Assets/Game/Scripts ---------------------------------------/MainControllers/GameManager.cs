@@ -434,7 +434,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject heavyWorldObjects;
     [SerializeField]
-    private GameObject healPrefab;
+    private Magnetic healPrefab;
 
     [Header("Pause Menu")]
     [SerializeField]
@@ -1142,7 +1142,11 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    // Static ------------------------------------------------
+    #endregion
+
+    // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    #region Static Methods
 
     public static Player.ColorState GetActiveColor()
     {
@@ -1251,7 +1255,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static void SpawnHealsAtPos(int amount, Vector3 position, float radius) => Instance.SpawnHeals(amount, position, radius);
+    public static void SpawnHealsAtPos(int amount, Vector3 position, float radius, float speed = 0) => Instance.SpawnHeals(amount, position, radius, speed);
 
     #endregion
 
@@ -1390,23 +1394,28 @@ public class GameManager : MonoBehaviour
         onComplete?.Invoke();
     }
 
-    private void SpawnHeals(int amount, Vector2 position, float radius)
+    private void SpawnHeals(int amount, Vector2 position, float radius, float speed = 0)
     {
         for (int i = 0; i < amount; i++)
         {
-            SpawnRandomHeal(position, radius);
+            SpawnRandomHeal(position, radius, speed);
         }
     }
 
-    private void SpawnRandomHeal(Vector2 position, float radius)
+    private void SpawnRandomHeal(Vector2 position, float radius, float speed = 0)
     {
-        GameObject heal = Instantiate(healPrefab, parentHeals);
+        Magnetic heal = Instantiate(healPrefab, parentHeals);
 
         heal.name = healPrefab.name;
-        heal.transform.position = (Vector3)position + GetRandomPos(radius);
+
+        Vector2 relativePos = GetRandomPos(radius);
+        heal.transform.position = position + relativePos;
+
+        Vector2 velocity = relativePos.normalized *  speed;
+        heal.Init(velocity);
     }
 
-    private Vector3 GetRandomPos(float radius) => new Vector2(UnityEngine.Random.Range(-1, 1), UnityEngine.Random.Range(-1, 1)).normalized * UnityEngine.Random.Range(0, 1) * radius;
+    private Vector3 GetRandomPos(float radius) => new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * UnityEngine.Random.Range(0f, 1f) * radius;
 
     #endregion
 

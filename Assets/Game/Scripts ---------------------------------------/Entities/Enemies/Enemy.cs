@@ -52,10 +52,15 @@ public class Enemy : MonoBehaviour, IHittable
     private UnityEvent onDeadEvent;
     [SerializeField]
     protected Color lightDefaultColor = Color.white;
+
+    [GambaHeader("Heals")]
     [SerializeField]
     private int healSpawns;
     [SerializeField]
     private float healSpawnRange = 0.25f;
+    [SerializeField]
+    private float healSpawnSpeed = 3;
+
     [GambaHeader("Movement")]
     [SerializeField]
     private float moveAcceleration = 100;
@@ -794,7 +799,7 @@ public class Enemy : MonoBehaviour, IHittable
 
         onDeadEvent?.Invoke();
 
-        GameManager.SpawnHealsAtPos(healSpawns, transform.position, healSpawnRange);
+        GameManager.SpawnHealsAtPos(healSpawns, transform.position, healSpawnRange, healSpawnSpeed);
     }
 
     #endregion

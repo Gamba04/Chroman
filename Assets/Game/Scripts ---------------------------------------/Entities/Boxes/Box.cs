@@ -30,10 +30,14 @@ public class Box : MonoBehaviour, IHittable
     private AnimationCurve deathcurve = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 0));
     [SerializeField]
     private Color originalColor;
+
+    [Header("Heals")]
     [SerializeField]
     private int healSpawns;
     [SerializeField]
     private float healSpawnRange = 0.25f;
+    [SerializeField]
+    private float healSpawnSpeed = 3;
 
     private float damageCooldown;
 
@@ -129,7 +133,7 @@ public class Box : MonoBehaviour, IHittable
     {
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.BoxDead);
 
-        GameManager.SpawnHealsAtPos(healSpawns, transform.position, healSpawnRange);
+        GameManager.SpawnHealsAtPos(healSpawns, transform.position, healSpawnRange, healSpawnSpeed);
     }
 
     #endregion

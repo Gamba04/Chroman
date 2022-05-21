@@ -5060,10 +5060,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ade8e49b242ae44eaf4ee8a37a7be1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 6360576026057798362}
+  magnetic: {fileID: 6360576026057798367}
   healAmount: 0.1
-  slowDown: 0.2
-  initialMaxSpeed: 1
 --- !u!114 &6360576026057798367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5078,6 +5076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 6360576026057798362}
   attractionForce: 0.25
+  slowDown: 0.2
   active: 1
 --- !u!50 &6360576026057798362
 Rigidbody2D:
