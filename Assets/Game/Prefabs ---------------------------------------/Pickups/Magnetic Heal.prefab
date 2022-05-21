@@ -4838,9 +4838,10 @@ Transform:
   m_GameObject: {fileID: 5846192579578109583}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15, y: 0.15, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 6712152438787072241}
+  - {fileID: 6440308931310853758}
   m_Father: {fileID: 6360576026057798366}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4967,10 +4968,10 @@ Transform:
   m_GameObject: {fileID: 6121056994707709866}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6360576026057798366}
-  m_RootOrder: 4
+  m_Father: {fileID: 3446083207762024695}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &602486382249360578
 TrailRenderer:
@@ -5021,28 +5022,28 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.16
+        value: 0.2
         inSlope: -1.5014443
-        outSlope: -0.56930023
+        outSlope: -0.20071428
         tangentMode: 1
         weightedMode: 2
         inWeight: 0.33333334
-        outWeight: 0.81079113
+        outWeight: 0.6069651
       - serializedVersion: 3
         time: 0.273613
         value: 0
-        inSlope: -0.31812036
-        outSlope: -0.31812036
+        inSlope: -1.2860681
+        outSlope: -1.2860681
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.63826245
+        inWeight: 0.19793895
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0.96470594, b: 0.89019614, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -5069,13 +5070,13 @@ TrailRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 8
+    numCapVertices: 8
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &6360576026057798369
@@ -5113,7 +5114,6 @@ Transform:
   - {fileID: 6458424696872709748}
   - {fileID: 3416833526392719725}
   - {fileID: 8423339904878189714}
-  - {fileID: 6440308931310853758}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5358,17 +5358,12 @@ PrefabInstance:
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}

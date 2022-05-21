@@ -51,8 +51,6 @@ MonoBehaviour:
   sr: {fileID: 4154191280149751734}
   rb: {fileID: 0}
   collider: {fileID: 4154191280149751732}
-  healPrefab: {fileID: 6360576026057798369, guid: 36141c80a359d98489bfd049a83bf119,
-    type: 3}
   life: 3
   takeDamage: 1
   damageColor: {r: 1, g: 0.463397, b: 0.3915094, a: 1}
@@ -116,7 +114,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   originalColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
   healSpawns: 2
-  healSpawnRange: 0.25
+  healSpawnRange: 1
+  healSpawnSpeed: 3
   explosion: {fileID: 6789840196036499904}
   light: {fileID: 5034372562076893281}
 --- !u!212 &4154191280149751734

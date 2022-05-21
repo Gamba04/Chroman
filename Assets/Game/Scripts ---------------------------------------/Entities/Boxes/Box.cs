@@ -35,7 +35,7 @@ public class Box : MonoBehaviour, IHittable
     [SerializeField]
     private int healSpawns;
     [SerializeField]
-    private float healSpawnRange = 0.25f;
+    private float healSpawnRange = 1;
     [SerializeField]
     private float healSpawnSpeed = 3;
 
