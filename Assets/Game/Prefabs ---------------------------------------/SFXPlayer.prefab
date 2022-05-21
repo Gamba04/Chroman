@@ -280,6 +280,12 @@ MonoBehaviour:
     spatialBlend: 0
     spatialRange: 5
     targetMixer: 0
+  - name: 'ExplosionWindUp : explosion wind up'
+    clip: {fileID: 8300000, guid: 84bf422c4e2f2f344a88b9e74d5d3edb, type: 3}
+    volume: 0.8
+    spatialBlend: 0
+    spatialRange: 5
+    targetMixer: 0
   sfxLoopClips:
   - name: 'BossDash : charge'
     clip: {fileID: 8300000, guid: 788280475cc8cf44db197fe605215736, type: 3}

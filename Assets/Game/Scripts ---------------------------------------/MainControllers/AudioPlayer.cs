@@ -155,6 +155,7 @@ public class AudioPlayer : MonoBehaviour
         Boss2Intro,
 
         ExplosiveBarrel,
+        ExplosionWindUp,
     }
 
     public enum SFXLoopTag

@@ -45,6 +45,8 @@ public class ExplosiveBox : Box, IKinetic
     {
         base.Die();
 
+        AudioPlayer.PlaySFX(AudioPlayer.SFXTag.ExplosionWindUp);
+
         Timer.CallOnDelay(() =>
         {
             explosion.Play();
