@@ -545,6 +545,7 @@ public class GameManager : MonoBehaviour
     private static float masterVolume = 1;
 
     private static float renderResolutionScale = 1;
+    private static Transform ParentHeals => Instance.parentHeals;
 
     public static float RenderResolutionScale
     {
@@ -562,7 +563,6 @@ public class GameManager : MonoBehaviour
     public static Player Player => Instance?.player; 
     public static Transform ParentBullets => Instance?.parentBullets; 
     public static Transform ParentGhosting => Instance?.parentGhosting; 
-    public static Transform ParentHeals => Instance?.parentHeals; 
     public static Canvas Canvas => Instance?.canvas;
     public static CameraController CameraController => Instance?.cameraController;
 
@@ -1370,7 +1370,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnRandomHeal(Vector2 position, float radius, float speed = 0)
     {
-        Magnetic heal = Instantiate(healPrefab, parentHeals);
+        Magnetic heal = Instantiate(healPrefab, ParentHeals);
 
         heal.name = healPrefab.name;
 

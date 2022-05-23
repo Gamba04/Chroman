@@ -5349,7 +5349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnetic: {fileID: 6360576026057798367}
-  healAmount: 0.1
+  healAmount: 0.05
 --- !u!114 &6360576026057798367
 MonoBehaviour:
   m_ObjectHideFlags: 0
