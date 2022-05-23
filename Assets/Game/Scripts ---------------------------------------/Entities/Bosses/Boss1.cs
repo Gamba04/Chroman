@@ -91,7 +91,7 @@ public class Boss1 : Boss, IHittable
     [SerializeField]
     private Animator headAnim;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private Transform saw;
     [SerializeField]
@@ -103,7 +103,7 @@ public class Boss1 : Boss, IHittable
     [SerializeField]
     private SpriteRenderer damageSprite;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [GambaHeader("Cannons")]
     [SerializeField]
     private Animator cannonsAnim;

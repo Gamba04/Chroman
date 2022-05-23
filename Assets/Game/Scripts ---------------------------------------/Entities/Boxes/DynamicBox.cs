@@ -9,7 +9,7 @@ public class DynamicBox : Box, IKinetic
     [SerializeField]
     private ParticleSystem explosion;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [SerializeField]
     private float defaultMass = 10;
     [SerializeField]
@@ -19,7 +19,7 @@ public class DynamicBox : Box, IKinetic
     {
         base.Start();
 
-        deathDuration = explosion.duration;
+        deathDuration = explosion.main.duration;
 
         rb.mass = defaultMass;
     }

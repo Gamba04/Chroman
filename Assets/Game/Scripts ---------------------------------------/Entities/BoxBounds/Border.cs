@@ -10,7 +10,7 @@ public class Border : MonoBehaviour
     [SerializeField]
     private SpriteRenderer sr;
     [SerializeField]
-    private BoxCollider2D collider;
+    private new BoxCollider2D collider;
     [Header("Settings")]
     [SerializeField]
     private float textureSpeed = 1;

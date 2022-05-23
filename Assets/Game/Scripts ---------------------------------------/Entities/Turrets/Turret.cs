@@ -14,9 +14,9 @@ public class Turret : MonoBehaviour, IHittable
     [SerializeField]
     private ParticleSystem explosion;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
@@ -75,7 +75,7 @@ public class Turret : MonoBehaviour, IHittable
 
         player = GameManager.Player;
 
-        deathDuration = explosion.duration;
+        deathDuration = explosion.main.duration;
     }
 
     private void Update()

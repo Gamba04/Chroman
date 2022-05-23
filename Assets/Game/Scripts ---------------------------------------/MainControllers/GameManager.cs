@@ -487,8 +487,6 @@ public class GameManager : MonoBehaviour
 
     [Header("HeartsUI")]
     [SerializeField]
-    private float damagePerLifeRegen = 100;
-    [SerializeField]
     private float heartsSeparation = 1;
     [SerializeField]
     private Sprite heartSprite;
@@ -624,7 +622,6 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 144;
         QualitySettings.vSyncCount = 0;
 
-        player.onDamageDealt += OnDamageDealt;
         player.onCombat += OnCombat;
 
         player.onDeath += onPlayerDeath;
@@ -660,11 +657,6 @@ public class GameManager : MonoBehaviour
 
         deathScreenAnim.gameObject.SetActive(true);
 
-        //player.SetImmobile(true);
-        //StartCoroutine(LoadLevelAsync(() =>
-        //        {
-                    
-        //        }));
         deathScreenAnim.SetBool("Start", true);
         player.SetImmobile(false);
         AdaptativeMusic.MasterVolumeTransition(AdaptativeMusic.DefaultMasterVolume);
@@ -836,15 +828,6 @@ public class GameManager : MonoBehaviour
     }
 
     //-----------------------------------------------------------------------------------------------
-
-    private void OnDamageDealt(float damageDealt)
-    {
-        //if (player.Health < Player.MaxHealth)
-        //{
-        //    heartRegenState += damageDealt / damagePerLifeRegen;
-        //    UpdateHeartRegen();
-        //}
-    }
 
     private void UpdateHeartRegen()
     {
@@ -1375,23 +1358,6 @@ public class GameManager : MonoBehaviour
         }
 
         AudioPlayer.PlaySFX(sfxTag);
-    }
-
-    private IEnumerator LoadLevelAsync(Action onComplete)
-    {
-        int iters = 100;
-
-        for (int i = 0; i < iters; i++)
-        {
-            yield return new WaitForEndOfFrame();
-
-            if (!Application.isLoadingLevel)
-            {
-                break;
-            }
-        }
-
-        onComplete?.Invoke();
     }
 
     private void SpawnHeals(int amount, Vector2 position, float radius, float speed = 0)

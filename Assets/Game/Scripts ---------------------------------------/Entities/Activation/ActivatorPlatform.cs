@@ -9,7 +9,7 @@ public class ActivatorPlatform : MonoBehaviour
     [SerializeField]
     private Animator anim;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private SpriteRenderer colorFill;
     [SerializeField]

@@ -29,13 +29,13 @@ public class Boss2 : Boss, IHittable
     [SerializeField]
     private SpriteRenderer fillColor;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [SerializeField]
     private SpriteRenderer whiteSprite;
     [SerializeField]
     private Transform cinematicTarget;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private BounceSimulator bounceSimulator;
 

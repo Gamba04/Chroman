@@ -35,7 +35,7 @@ public class ButtonBase : MonoBehaviour
     }
 
     [SerializeField]
-    private ButtonTag tag;
+    private new ButtonTag tag;
 
     #region ButtonLowerLayout
 

@@ -8,13 +8,13 @@ public class HardBox : Box
     [SerializeField]
     private ParticleSystem explosion;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
 
     protected override void Start()
     {
         base.Start();
 
-        deathDuration = explosion.duration;
+        deathDuration = explosion.main.duration;
     }
 
     public override void OnHit(Vector2 hitterPosition, float damage, float knockback, int layer)

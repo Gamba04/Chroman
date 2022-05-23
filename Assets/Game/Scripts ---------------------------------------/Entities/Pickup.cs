@@ -11,7 +11,7 @@ public class Pickup : MonoBehaviour
     [SerializeField]
     private GameObject sprite;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
 
     [Header("Settings")]
     [SerializeField]
@@ -31,7 +31,7 @@ public class Pickup : MonoBehaviour
 
     private void Start()
     {
-        deathDuration = explosion.duration;
+        deathDuration = explosion.main.duration;
     }
 
     private void Update()

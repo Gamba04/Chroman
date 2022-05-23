@@ -48,7 +48,7 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private List<ColoredSprite> coloredSprites = new List<ColoredSprite>();
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private Animator anim;
 

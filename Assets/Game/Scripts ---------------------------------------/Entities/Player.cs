@@ -30,7 +30,7 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField]
     private SpriteRenderer sr;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private GameObject directionArrow;
     [SerializeField]
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [SerializeField]
     private Sprite[] colorSprites;
     [SerializeField]
