@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour, IKinetic
     [SerializeField]
     protected Rigidbody2D rb;
     [SerializeField]
-    protected Collider2D collider;
+    protected new Collider2D collider;
     [SerializeField]
     protected BulletSkin skin;
     [Space()]
@@ -93,7 +93,7 @@ public class Bullet : MonoBehaviour, IKinetic
         direction = (dir.normalized * speed + momentum).normalized;
         UpdateVelocity();
 
-        deathDuration = skin.ps.duration;
+        deathDuration = skin.ps.main.duration;
         lifeTime = maxLifeTime;
 
         filter.layerMask = targetLayers;
@@ -113,6 +113,8 @@ public class Bullet : MonoBehaviour, IKinetic
         {
             CheckCollision();
 
+            if (dead) return;
+
             AliveUpdate();
         }
         else
@@ -124,6 +126,7 @@ public class Bullet : MonoBehaviour, IKinetic
     private void Timers()
     {
         Timer.ReduceCooldown(ref lifeTime, Die);
+
         if (dead)
         {
             Timer.ReduceCooldown(ref deathCounter, () =>

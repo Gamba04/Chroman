@@ -9,7 +9,7 @@ public class BoxBounds : MonoBehaviour
     [SerializeField]
     private BoxSpawner spawner;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private GameObject laserRoot;
     [SerializeField]

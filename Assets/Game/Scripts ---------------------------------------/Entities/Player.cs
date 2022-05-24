@@ -15,6 +15,7 @@ public class Player : MonoBehaviour, IHittable
 
     public enum ColorState
     {
+        None = -1,
         Red,
         Blue,
         Purple,
@@ -30,7 +31,7 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField]
     private SpriteRenderer sr;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private GameObject directionArrow;
     [SerializeField]
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [SerializeField]
     private Sprite[] colorSprites;
     [SerializeField]
@@ -227,7 +228,7 @@ public class Player : MonoBehaviour, IHittable
 
         kineticCloudOriginalScale = kineticCloudSr.transform.localScale;
 
-        ChangeColor(ColorState.Red);
+        ChangeColor(ColorState.None);
 
         StartCoroutine(InvincibilityFrames());
 
@@ -446,7 +447,11 @@ public class Player : MonoBehaviour, IHittable
 
     public void ChangeColor(ColorState colorState)
     {
-        if (!IsInsideOfInvisibleColorObject() && (int)colorState <= unlockedColors)
+        if (colorState == ColorState.None)
+        {
+
+        }
+        else if (!IsInsideOfInvisibleColorObject() && (int)colorState < unlockedColors)
         {
             switch (this.colorState)
             {
@@ -497,26 +502,29 @@ public class Player : MonoBehaviour, IHittable
 
     private void ColorSwap(bool nextCol)
     {
-        if (nextCol)
+        if (unlockedColors > 0)
         {
-            if ((int)colorState == unlockedColors)
+            if (nextCol)
             {
-                ChangeColor((ColorState)0);
+                if ((int)colorState == unlockedColors)
+                {
+                    ChangeColor((ColorState)0);
+                }
+                else
+                {
+                    ChangeColor((ColorState)((int)colorState + 1));
+                }
             }
             else
             {
-                ChangeColor((ColorState)((int)colorState + 1));
-            }
-        }
-        else
-        {
-            if ((int)colorState == 0)
-            {
-                ChangeColor((ColorState)unlockedColors);
-            }
-            else
-            {
-                ChangeColor((ColorState)((int)colorState - 1));
+                if ((int)colorState == 0)
+                {
+                    ChangeColor((ColorState)unlockedColors);
+                }
+                else
+                {
+                    ChangeColor((ColorState)((int)colorState - 1));
+                }
             }
         }
     }
@@ -1216,12 +1224,12 @@ public class Player : MonoBehaviour, IHittable
         return state;
     }
 
-    public void SetUnlockedColors(int id)
+    public void SetUnlockedColors(int amount)
     {
-        if (unlockedColors < id)
+        if (unlockedColors < amount)
         {
-            unlockedColors = id;
-            UnlockedColors = id;
+            unlockedColors = amount;
+            UnlockedColors = amount;
 
             onUpdateColor?.Invoke();
         }

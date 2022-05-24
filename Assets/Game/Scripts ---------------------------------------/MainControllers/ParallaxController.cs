@@ -44,7 +44,7 @@ public class ParallaxController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
-    private Camera camera;
+    private new Camera camera;
     [SerializeField]
     private List<ParallaxLayer> parallaxLayers = new List<ParallaxLayer>();
 

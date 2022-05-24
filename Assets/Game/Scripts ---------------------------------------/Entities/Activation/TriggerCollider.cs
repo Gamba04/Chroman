@@ -7,7 +7,7 @@ public class TriggerCollider : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
 
     [Header("Settings")]
     [SerializeField]

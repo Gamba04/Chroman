@@ -5234,7 +5234,7 @@ MonoBehaviour:
   kineticRigidity: 20
   kineticCloudRange: 3
   knockback: 20
-  unlockedColors: 0
+  unlockedColors: 1
   moveAcceleration: 100
   moveDeacceleration: 10
   moveSpeed: 7

@@ -288,7 +288,7 @@ public class GameManager : MonoBehaviour
 
         public void SetName(int index)
         {
-            name = $"{((Player.ColorState)index).ToString()} Arrow";
+            name = $"{(Player.ColorState)index} Arrow";
         }
     }
 
@@ -487,8 +487,6 @@ public class GameManager : MonoBehaviour
 
     [Header("HeartsUI")]
     [SerializeField]
-    private float damagePerLifeRegen = 100;
-    [SerializeField]
     private float heartsSeparation = 1;
     [SerializeField]
     private Sprite heartSprite;
@@ -547,6 +545,7 @@ public class GameManager : MonoBehaviour
     private static float masterVolume = 1;
 
     private static float renderResolutionScale = 1;
+    private static Transform ParentHeals => Instance.parentHeals;
 
     public static float RenderResolutionScale
     {
@@ -564,7 +563,6 @@ public class GameManager : MonoBehaviour
     public static Player Player => Instance?.player; 
     public static Transform ParentBullets => Instance?.parentBullets; 
     public static Transform ParentGhosting => Instance?.parentGhosting; 
-    public static Transform ParentHeals => Instance?.parentHeals; 
     public static Canvas Canvas => Instance?.canvas;
     public static CameraController CameraController => Instance?.cameraController;
 
@@ -624,7 +622,6 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 144;
         QualitySettings.vSyncCount = 0;
 
-        player.onDamageDealt += OnDamageDealt;
         player.onCombat += OnCombat;
 
         player.onDeath += onPlayerDeath;
@@ -660,11 +657,6 @@ public class GameManager : MonoBehaviour
 
         deathScreenAnim.gameObject.SetActive(true);
 
-        //player.SetImmobile(true);
-        //StartCoroutine(LoadLevelAsync(() =>
-        //        {
-                    
-        //        }));
         deathScreenAnim.SetBool("Start", true);
         player.SetImmobile(false);
         AdaptativeMusic.MasterVolumeTransition(AdaptativeMusic.DefaultMasterVolume);
@@ -837,15 +829,6 @@ public class GameManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------
 
-    private void OnDamageDealt(float damageDealt)
-    {
-        //if (player.Health < Player.MaxHealth)
-        //{
-        //    heartRegenState += damageDealt / damagePerLifeRegen;
-        //    UpdateHeartRegen();
-        //}
-    }
-
     private void UpdateHeartRegen()
     {
         if (Player.Health <= 0)
@@ -882,7 +865,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateColorHud()
     {
-        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length;
+        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length - 1;
 
         for (int i = 0; i < colorAmount; i++)
         {
@@ -1377,23 +1360,6 @@ public class GameManager : MonoBehaviour
         AudioPlayer.PlaySFX(sfxTag);
     }
 
-    private IEnumerator LoadLevelAsync(Action onComplete)
-    {
-        int iters = 100;
-
-        for (int i = 0; i < iters; i++)
-        {
-            yield return new WaitForEndOfFrame();
-
-            if (!Application.isLoadingLevel)
-            {
-                break;
-            }
-        }
-
-        onComplete?.Invoke();
-    }
-
     private void SpawnHeals(int amount, Vector2 position, float radius, float speed = 0)
     {
         for (int i = 0; i < amount; i++)
@@ -1404,7 +1370,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnRandomHeal(Vector2 position, float radius, float speed = 0)
     {
-        Magnetic heal = Instantiate(healPrefab, parentHeals);
+        Magnetic heal = Instantiate(healPrefab, ParentHeals);
 
         heal.name = healPrefab.name;
 
@@ -1427,7 +1393,7 @@ public class GameManager : MonoBehaviour
 
     private void OnValidate()
     {
-        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length;
+        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length - 1;
 
         #region ColorWalls
 

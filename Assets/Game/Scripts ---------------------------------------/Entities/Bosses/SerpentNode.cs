@@ -24,11 +24,11 @@ public class SerpentNode : MonoBehaviour, IHittable
     [SerializeField]
     private Animator anim;
     [SerializeField]
-    private Collider2D collider;
+    private new Collider2D collider;
     [SerializeField]
     private SpriteRenderer colorFill;
     [SerializeField]
-    private SpriteRenderer light;
+    private new SpriteRenderer light;
     [SerializeField]
     private SpriteRenderer whiteSprite;
 

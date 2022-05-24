@@ -168,7 +168,7 @@ public class Enemy : MonoBehaviour, IHittable
             initialPos = transform.position;
         }
 
-        deathDuration = explosion.duration;
+        deathDuration = explosion.main.duration;
 
         ChangeState(EnemyState.Wandering);
 

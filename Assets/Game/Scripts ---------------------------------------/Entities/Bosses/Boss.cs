@@ -44,7 +44,7 @@ public class Boss : MonoBehaviour
     [ReadOnly, SerializeField]
     protected Player player;
     [ReadOnly, SerializeField]
-    protected CameraController camera;
+    protected new CameraController camera;
     [ReadOnly, SerializeField]
     protected bool dead;
     [ReadOnly, SerializeField]

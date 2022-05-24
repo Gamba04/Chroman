@@ -26,8 +26,6 @@ public class MeleeEnemy : Enemy, IKinetic
 
     private CollisionInfo lastCollision;
 
-    private Vector2 dashDirection;
-
     protected override void Start()
     {
         base.Start();
