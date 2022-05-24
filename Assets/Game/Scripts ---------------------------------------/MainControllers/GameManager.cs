@@ -288,7 +288,7 @@ public class GameManager : MonoBehaviour
 
         public void SetName(int index)
         {
-            name = $"{((Player.ColorState)index).ToString()} Arrow";
+            name = $"{(Player.ColorState)index} Arrow";
         }
     }
 
@@ -865,7 +865,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateColorHud()
     {
-        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length;
+        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length - 1;
 
         for (int i = 0; i < colorAmount; i++)
         {
@@ -1393,7 +1393,7 @@ public class GameManager : MonoBehaviour
 
     private void OnValidate()
     {
-        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length;
+        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length - 1;
 
         #region ColorWalls
 
