@@ -491,6 +491,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserHead
       objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.23921569
+      objectReference: {fileID: 0}
     - target: {fileID: 6251799893627180359, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
         type: 3}
       propertyPath: m_RootOrder

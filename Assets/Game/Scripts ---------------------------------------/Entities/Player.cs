@@ -57,6 +57,8 @@ public class Player : MonoBehaviour, IHittable
 
     [Header("Settings")]
     [SerializeField]
+    private ColorState startingState;
+    [SerializeField]
     private float dashSpeed;
     [SerializeField]
     private float maxDashDuration;
@@ -130,6 +132,18 @@ public class Player : MonoBehaviour, IHittable
     [Range(0.1f, 2)]
     private float deathDuration;
 
+    [GambaHeader("Colors", 0.7f)]
+    [SerializeField]
+    private Color color_None;
+    [SerializeField]
+    private Color color_Melee;
+    [SerializeField]
+    private Color color_Range;
+    [SerializeField]
+    private Color color_Kinetic;
+    [SerializeField]
+    private Color color_Electric;
+
     [Header("Transitions")]
     [SerializeField]
     private Transition kineticCloudTransition;
@@ -156,16 +170,6 @@ public class Player : MonoBehaviour, IHittable
     [ReadOnly, SerializeField]
     private Vector2 direction;
 
-    [GambaHeader("Colors", 0.7f)]
-    [ReadOnly, SerializeField]
-    private Color color_Melee;
-    [ReadOnly, SerializeField]
-    private Color color_Range;
-    [ReadOnly, SerializeField]
-    private Color color_Kinetic;
-    [ReadOnly, SerializeField]
-    private Color color_Electric;
-
     [GambaHeader("Cooldowns", 0.7f)]
     [ReadOnly, SerializeField]
     private float cooldown_Invincible;
@@ -182,7 +186,7 @@ public class Player : MonoBehaviour, IHittable
 
     private Color previousColor;
     private Color targetColor;
-    float lightAlpha;
+    private float lightAlpha;
 
     private int currentAttack;
 
@@ -228,7 +232,7 @@ public class Player : MonoBehaviour, IHittable
 
         kineticCloudOriginalScale = kineticCloudSr.transform.localScale;
 
-        ChangeColor(ColorState.None);
+        ChangeColor(startingState);
 
         StartCoroutine(InvincibilityFrames());
 
@@ -447,14 +451,13 @@ public class Player : MonoBehaviour, IHittable
 
     public void ChangeColor(ColorState colorState)
     {
-        if (colorState == ColorState.None)
-        {
-
-        }
-        else if (!IsInsideOfInvisibleColorObject() && (int)colorState < unlockedColors)
+        if (!IsInsideOfInvisibleColorObject() && (int)colorState < unlockedColors)
         {
             switch (this.colorState)
             {
+                case ColorState.None:
+                    previousColor = color_None;
+                    break;
                 case ColorState.Red:
                     previousColor = color_Melee;
                     break;
@@ -473,6 +476,11 @@ public class Player : MonoBehaviour, IHittable
 
             switch (colorState)
             {
+                case ColorState.None:
+                    targetColor = color_None;
+                    CancelKinetic();
+                    anim.SetInteger("State", -1);
+                    break;
                 case ColorState.Red:
                     targetColor = color_Melee;
                     CancelKinetic();
@@ -494,7 +502,7 @@ public class Player : MonoBehaviour, IHittable
                     break;
             }
 
-            sr.sprite = colorSprites[(int)colorState];
+            sr.sprite = colorSprites[(int)colorState + 1];
 
             colorProgress = 0;
         }
@@ -506,20 +514,20 @@ public class Player : MonoBehaviour, IHittable
         {
             if (nextCol)
             {
-                if ((int)colorState == unlockedColors)
+                if ((int)colorState == unlockedColors - 1)
                 {
-                    ChangeColor((ColorState)0);
+                    ChangeColor(0);
                 }
                 else
                 {
                     ChangeColor((ColorState)((int)colorState + 1));
                 }
             }
-            else
+            else // Previous
             {
-                if ((int)colorState == 0)
+                if (colorState <= 0)
                 {
-                    ChangeColor((ColorState)unlockedColors);
+                    ChangeColor((ColorState)unlockedColors - 1);
                 }
                 else
                 {
@@ -966,7 +974,7 @@ public class Player : MonoBehaviour, IHittable
 
                 ChangeState(PlayerState.Dash);
 
-                ghosting.Enable(ghostingSprites[(int)colorState], targetColor);
+                ghosting.Enable(ghostingSprites[(int)colorState + 1], targetColor);
                 AudioPlayer.PlaySFX(AudioPlayer.SFXTag.Dash);
 
                 ignoreLayers.Add(10); // EnemyBullet

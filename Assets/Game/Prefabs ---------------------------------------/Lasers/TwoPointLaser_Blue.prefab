@@ -130,6 +130,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserHead_A
       objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.23921569
+      objectReference: {fileID: 0}
     - target: {fileID: 6251799893627180359, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
         type: 3}
       propertyPath: m_RootOrder
@@ -204,6 +224,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LaserHead_B
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.972549
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661131669500381548, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.23921569
       objectReference: {fileID: 0}
     - target: {fileID: 6251799893627180359, guid: 112625a4a17ab8c47820d4dc60ee6ef2,
         type: 3}
@@ -795,7 +835,7 @@ PrefabInstance:
     - target: {fileID: 6161444299505106163, guid: 1dfad091046af6648b3c5f0e941df5de,
         type: 3}
       propertyPath: ShapeModule.m_Scale.y
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6161444299505106163, guid: 1dfad091046af6648b3c5f0e941df5de,
         type: 3}
@@ -1020,7 +1060,7 @@ PrefabInstance:
     - target: {fileID: 8464465182756528685, guid: 1dfad091046af6648b3c5f0e941df5de,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8464465182756528685, guid: 1dfad091046af6648b3c5f0e941df5de,
         type: 3}
@@ -1035,7 +1075,7 @@ PrefabInstance:
     - target: {fileID: 8464465182756528685, guid: 1dfad091046af6648b3c5f0e941df5de,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8464465182756528685, guid: 1dfad091046af6648b3c5f0e941df5de,
         type: 3}

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -210,13 +210,55 @@ public class GambaFunctions : MonoBehaviour
         }
     }
 
+    /// <summary> QuickSort a List of any type with a custom comparison method. </summary>
+    /// <param name="comparison"> Custom comparison method which defines if element1 <, <=, ==, !=, >= or > element2. Returns an int which corresponds to an equivalent comparison with 0. </param>
+    public static List<T> QuickSort<T>(List<T> elements, Comparison<T> comparison)
+    {
+        if (elements.Count <= 1) return elements;
+
+        int pivot = elements.Count - 1;
+
+        // Create partitions
+        List<T> left = new List<T>();
+        List<T> right = new List<T>();
+
+        for (int i = 0; i < elements.Count - 1; i++)
+        {
+            if (comparison(elements[i], elements[pivot]) <= 0)
+            {
+                left.Add(elements[i]);
+            }
+            else
+            {
+                right.Add(elements[i]);
+            }
+        }
+
+        // Recurse
+        left = QuickSort(left, comparison);
+        right = QuickSort(right, comparison);
+
+        // Join partitions
+        List<T> syntesis = left;
+        syntesis.Add(elements[pivot]);
+        syntesis.AddRange(right);
+
+        return syntesis;
+    }
+
+    /// <summary> QuickSort a List of any type with default IComparable.CompareTo. </summary>
+    public static List<T> QuickSort<T>(List<T> elements) where T : IComparable<T>
+    {
+        return QuickSort(elements, (e1, e2) => e1.CompareTo(e2));
+    }
+
     #endregion
 
     #region Editor
 
 #if UNITY_EDITOR
 
-    public static void DestroyInEditor(Object @object)
+    public static void DestroyInEditor(UnityEngine.Object @object)
     {
         UnityEditor.EditorApplication.delayCall += () =>
         {

@@ -338,7 +338,7 @@ public class AdaptativeMusic : MonoBehaviour
 
     private void UpdateStates()
     {
-        UpdateTracks(ColorParent, ref colorTracks, ref colorAudioSources, (int)previousColorState, (int)nextColorState);
+        UpdateTracks(ColorParent, ref colorTracks, ref colorAudioSources, (int)previousColorState + 1, (int)nextColorState + 1);
         UpdateTracks(CombatParent, ref combatTracks, ref combatAudioSources, (int)previousCombatState, (int)nextCombatState);
         UpdateTracks(HealthParent, ref healthTracks, ref healthAudioSources, (int)previousHealthState, (int)nextHealthState);
     }
@@ -481,6 +481,8 @@ public class AdaptativeMusic : MonoBehaviour
     private void UpdateTrackList<T>(Transform parent, ref List<MusicTrack> tracks, ref List<AudioSource> audioSources) where T : Enum
     {
         T[] enumValues = (T[])Enum.GetValues(typeof(T));
+
+        enumValues = GambaFunctions.QuickSort(new List<T>(enumValues), (a, b) => (int)(object)a - (int)(object)b).ToArray(); // Reorder by numeric value
 
         if (tracks == null || tracks.Count != enumValues.Length)
         {
