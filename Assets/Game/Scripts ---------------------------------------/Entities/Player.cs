@@ -215,15 +215,15 @@ public class Player : MonoBehaviour, IHittable
     public bool Dead { get => dead; set => dead = value; }
     public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
 
-    private void Start()
+    public void Init()
     {
         health = MaxHealth;
 
-        if (unlockedColors < UnlockedColors)
+        if (unlockedColors < UnlockedColors) // Get from static
         {
             unlockedColors = UnlockedColors;
         }
-        else
+        else // Upload to static
         {
             UnlockedColors = unlockedColors;
         }
@@ -1234,13 +1234,10 @@ public class Player : MonoBehaviour, IHittable
 
     public void SetUnlockedColors(int amount)
     {
-        if (unlockedColors < amount)
-        {
-            unlockedColors = amount;
-            UnlockedColors = amount;
+        unlockedColors = amount;
+        UnlockedColors = amount;
 
-            onUpdateColor?.Invoke();
-        }
+        onUpdateColor?.Invoke();
     }
 
     public int GetUnlockedColors()

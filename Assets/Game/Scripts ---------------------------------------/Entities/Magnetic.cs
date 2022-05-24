@@ -21,8 +21,6 @@ public class Magnetic : MonoBehaviour
     public void Init(Vector2 velocity)
     {
         rb.velocity = velocity;
-
-        print(rb.velocity.magnitude);
     }
 
     public void Attract(Vector2 attractionVector)

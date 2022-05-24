@@ -5217,11 +5217,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -2.1612341
+      outSlope: -2.1612341
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.04583335
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -5237,7 +5237,7 @@ MonoBehaviour:
   kineticRigidity: 20
   kineticCloudRange: 3
   knockback: 20
-  unlockedColors: 1
+  unlockedColors: 0
   moveAcceleration: 100
   moveDeacceleration: 10
   moveSpeed: 7
@@ -5251,7 +5251,7 @@ MonoBehaviour:
   maxCooldown_Range: 0.3
   maxCooldown_Kinetic: 0.1
   maxCooldown_Electric: 0.3
-  deathDuration: 1.5
+  deathDuration: 1
   color_None: {r: 0.4, g: 0.33057854, b: 0.33057854, a: 1}
   color_Melee: {r: 1, g: 0.23113209, b: 0.26042247, a: 1}
   color_Range: {r: 0.30980396, g: 1, b: 0.71908325, a: 1}
