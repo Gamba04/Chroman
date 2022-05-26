@@ -101,15 +101,21 @@ public class EditorObjectMover : MonoBehaviour
 
         for (int i = 0; i < parents.Count; i++)
         {
+            if (parents[i] == null) continue;
+
             for (int c = 0; c < parents[i].childCount; c++)
             {
-                allObjects.Add(parents[i].GetChild(c));
+                Transform obj = parents[i].GetChild(c);
+
+                if (obj != null) allObjects.Add(obj);
             }
         }
 
         for (int i = 0; i < singleObjects.Count; i++)
         {
-            allObjects.Add(singleObjects[i]);
+            Transform obj = singleObjects[i];
+
+            if (obj != null) allObjects.Add(obj);
         }
     }
 
