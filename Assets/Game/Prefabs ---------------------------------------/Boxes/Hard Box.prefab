@@ -113,7 +113,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   originalColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
-  healSpawns: 2
+  healSpawns: 1
   healSpawnRange: 1
   healSpawnSpeed: 3
   explosion: {fileID: 6789840196036499904}
