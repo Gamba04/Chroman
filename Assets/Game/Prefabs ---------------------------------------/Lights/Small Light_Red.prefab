@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7371757909570642673}
   m_Layer: 0
-  m_Name: Small Light_Blue
+  m_Name: Small Light_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,17 +134,17 @@ PrefabInstance:
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.24056602
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.92501265
+      value: 0.25323007
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.23921567
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
@@ -244,17 +244,17 @@ PrefabInstance:
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.24056602
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.92501265
+      value: 0.25323007
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755079, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.23921567
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755080, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}
