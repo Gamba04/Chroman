@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2466492784885288444}
   - component: {fileID: 1661131669500381548}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6598621647063438042}
   - component: {fileID: 4637147754159010870}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7688041775793998463}
   - component: {fileID: 5046876527279007040}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,6 +279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850289524237755078, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7850289524237755078, guid: 1b66fc5686c9cd34d919305ac8c6f7d8,
         type: 3}

@@ -133,6 +133,15 @@ public class EditorObjectMover : MonoBehaviour
 
     private void OnValidate()
     {
+        if (clear)
+        {
+            clear = false;
+
+            parents.Clear();
+            singleObjects.Clear();
+            allObjects.Clear();
+        }
+
         float targetAllObjectCount = CalculateTargetAmount();
 
         if (parents.Count != lastParentCount || singleObjects.Count != lastSingleCount || allObjects.Count != targetAllObjectCount)
@@ -155,15 +164,6 @@ public class EditorObjectMover : MonoBehaviour
             perfect = false;
 
             RoundObjects();
-        }
-
-        if (clear) // ---------------------------------------
-        {
-            clear = false;
-
-            parents.Clear();
-            singleObjects.Clear();
-            allObjects.Clear();
         }
     }
 
