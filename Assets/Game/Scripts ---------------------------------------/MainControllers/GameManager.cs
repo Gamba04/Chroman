@@ -652,6 +652,9 @@ public class GameManager : MonoBehaviour
 
         playerHp = Player.Health;
         playerMaxHp = Player.MaxHealth;
+
+        CreateHealthBar();
+
         UpdateHealthUI();
         UpdateHeartRegen();
         UpdateColorHud();
@@ -733,6 +736,19 @@ public class GameManager : MonoBehaviour
     #region UIControl
 
     #region Health
+
+    private void CreateHealthBar()
+    {
+        for (int i = 0; i < playerMaxHp; i++)
+        {
+            AddHealthCell();
+        }
+    }
+
+    private void AddHealthCell()
+    {
+
+    }
 
     private void DetectHealthChanges()
     {
