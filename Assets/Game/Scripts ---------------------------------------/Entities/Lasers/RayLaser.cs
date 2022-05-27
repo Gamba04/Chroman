@@ -16,12 +16,14 @@ public class RayLaser : Laser
     private List<int> worldCollisionLayers = new List<int>();
     [SerializeField]
     private Transform hitPoint;
+    [SerializeField]
+    private float margin = 0.1f;
 
     public override void UpdatePositions()
     {
         posA = origin;
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, direction, maxDistance);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin + direction.normalized * margin, direction, maxDistance);
 
         bool checkHit = false;
 

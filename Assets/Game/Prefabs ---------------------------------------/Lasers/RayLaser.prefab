@@ -9943,7 +9943,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 768
   mainColor: {r: 1, g: 0.4047646, b: 0.24056602, a: 1}
-  damage: 1
+  damage: 100
   colorTag: 0
   respondToTag: 0
   distanceMultiplier: 2

@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
             player.Health = playerHealth;
             player.SetUnlockedColors(playerUnlockedColors);
             player.ChangeColor(playerColor);
+
             gameManager.heartRegenState = heartRegen;
             if (!bossKilled)
             {
@@ -621,6 +622,8 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = 144;
         QualitySettings.vSyncCount = 0;
+
+        player.Init();
 
         player.onCombat += OnCombat;
 

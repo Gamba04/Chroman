@@ -419,8 +419,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   lightDefaultColor: {r: 0.27058825, g: 1, b: 0.7294118, a: 0.78431374}
-  healSpawns: 3
+  healSpawns: 4
   healSpawnRange: 0.25
+  healSpawnSpeed: 3
   moveAcceleration: 100
   moveDeacceleration: 10
   moveSpeed: 3

@@ -5183,11 +5183,13 @@ MonoBehaviour:
     type: 3}
   light: {fileID: 3210070346457505620}
   colorSprites:
+  - {fileID: 21300000, guid: 284c1ee3f5ca39343b192069dbfc3674, type: 3}
   - {fileID: 21300000, guid: 16f3216bbfd849f46bd5617cc98ff18d, type: 3}
   - {fileID: 21300000, guid: 7e7ac8e7174136b4fb9b8ce6519a57ce, type: 3}
-  - {fileID: 21300000, guid: 0313248d3e3c3fc47ac2d41de698109e, type: 3}
+  - {fileID: 21300000, guid: 407a37a2bb034d94387ba2117c44bea8, type: 3}
   - {fileID: 21300000, guid: dc9269d1cf016284e81ddd9a93fe670b, type: 3}
   ghostingSprites:
+  - {fileID: 21300000, guid: fe056294b862b6244ba539360cbcc36c, type: 3}
   - {fileID: 21300000, guid: 471e0b28f460812449ad889876ad65f0, type: 3}
   - {fileID: 21300000, guid: 7eda489582f416a48a0d0cbb7e4e15ba, type: 3}
   - {fileID: 21300000, guid: 197222369f903d642b4abdfafba92d9e, type: 3}
@@ -5196,6 +5198,7 @@ MonoBehaviour:
   explosion: {fileID: 3097007903557176436}
   kineticCloudSr: {fileID: 5539471228427194780}
   kineticCloudCollider: {fileID: 7323485913019229160}
+  startingState: -1
   dashSpeed: 20
   maxDashDuration: 0.2
   colorTransitionDuration: 0.3
@@ -5214,11 +5217,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -2.1612341
+      outSlope: -2.1612341
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.04583335
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -5234,7 +5237,7 @@ MonoBehaviour:
   kineticRigidity: 20
   kineticCloudRange: 3
   knockback: 20
-  unlockedColors: 1
+  unlockedColors: 0
   moveAcceleration: 100
   moveDeacceleration: 10
   moveSpeed: 7
@@ -5248,7 +5251,12 @@ MonoBehaviour:
   maxCooldown_Range: 0.3
   maxCooldown_Kinetic: 0.1
   maxCooldown_Electric: 0.3
-  deathDuration: 1.5
+  deathDuration: 1
+  color_None: {r: 0.4, g: 0.33057854, b: 0.33057854, a: 1}
+  color_Melee: {r: 1, g: 0.23113209, b: 0.26042247, a: 1}
+  color_Range: {r: 0.30980396, g: 1, b: 0.71908325, a: 1}
+  color_Kinetic: {r: 0.84100974, g: 0.30980396, b: 1, a: 1}
+  color_Electric: {r: 1, g: 0.8768551, b: 0.30980396, a: 1}
   kineticCloudTransition:
     curve:
       serializedVersion: 2
@@ -5285,10 +5293,6 @@ MonoBehaviour:
   isInvincible: 0
   moveAxis: {x: 0, y: 0}
   direction: {x: 0, y: 0}
-  color_Melee: {r: 1, g: 0.23113209, b: 0.26042247, a: 1}
-  color_Range: {r: 0.30980396, g: 1, b: 0.71908325, a: 1}
-  color_Kinetic: {r: 0.84100974, g: 0.30980396, b: 1, a: 1}
-  color_Electric: {r: 1, g: 0.8768551, b: 0.30980396, a: 1}
   cooldown_Invincible: 0
   cooldown_Attack: 0
   cooldown_Dash: 0
