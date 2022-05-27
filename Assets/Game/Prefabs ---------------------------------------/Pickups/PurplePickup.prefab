@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 4698055706111256928}
+  aura: {fileID: 6017875275677260720}
   sprite: {fileID: 3542456512272847333}
   light: {fileID: 8374532827354097822}
   detectionRadius: 0.5
@@ -5252,6 +5253,12 @@ PrefabInstance:
 --- !u!4 &6017875275677260723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8879714795182596748, guid: 1330beecbb779e94b92f71e272fd45b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2934337199660529983}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6017875275677260720 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8879714795182596751, guid: 1330beecbb779e94b92f71e272fd45b8,
     type: 3}
   m_PrefabInstance: {fileID: 2934337199660529983}
   m_PrefabAsset: {fileID: 0}

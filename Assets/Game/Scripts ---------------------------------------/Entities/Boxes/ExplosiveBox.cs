@@ -24,6 +24,8 @@ public class ExplosiveBox : Box, IKinetic
     private LayerMask hitLayers;
     [SerializeField]
     private Collider2D explosionCollider;
+    [SerializeField]
+    Animator animator;
 
     protected override void Start()
     {
@@ -39,6 +41,8 @@ public class ExplosiveBox : Box, IKinetic
         base.OnHit(hitterPosition, damage, knockback, layer);
 
         rb.velocity = ((Vector2)kTransform.position - hitterPosition).normalized * knockback;
+
+        animator.SetBool("isHit", true);
     }
 
     protected override void Die()
