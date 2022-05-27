@@ -14867,6 +14867,7 @@ MonoBehaviour:
   explosion: {fileID: 3097007903557176436}
   kineticCloudSr: {fileID: 5539471228427194780}
   kineticCloudCollider: {fileID: 7323485913019229160}
+  newColorVFX: {fileID: 7311436524459388668}
   startingState: -1
   dashSpeed: 20
   maxDashDuration: 0.2

@@ -54,6 +54,8 @@ public class Player : MonoBehaviour, IHittable
     private SpriteRenderer kineticCloudSr;
     [SerializeField]
     private Collider2D kineticCloudCollider;
+    [SerializeField]
+    private ParticleSystem newColorVFX;
 
     [Header("Settings")]
     [SerializeField]
@@ -1238,6 +1240,8 @@ public class Player : MonoBehaviour, IHittable
         UnlockedColors = amount;
 
         onUpdateColor?.Invoke();
+
+        ChangeColor((ColorState)(amount-1));
     }
 
     public int GetUnlockedColors()
