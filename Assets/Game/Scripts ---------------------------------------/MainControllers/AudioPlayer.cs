@@ -156,6 +156,7 @@ public class AudioPlayer : MonoBehaviour
 
         ExplosiveBarrel,
         ExplosionWindUp,
+        MagneticHeal,
     }
 
     public enum SFXLoopTag
