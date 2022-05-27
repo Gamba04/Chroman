@@ -286,6 +286,12 @@ MonoBehaviour:
     spatialBlend: 0
     spatialRange: 5
     targetMixer: 0
+  - name: 'MagneticHeal : health_v2'
+    clip: {fileID: 8300000, guid: deda5a4da85255f4e85dfd43d12cfc10, type: 3}
+    volume: 1
+    spatialBlend: 0
+    spatialRange: 5
+    targetMixer: 0
   sfxLoopClips:
   - name: 'BossDash : charge'
     clip: {fileID: 8300000, guid: 788280475cc8cf44db197fe605215736, type: 3}

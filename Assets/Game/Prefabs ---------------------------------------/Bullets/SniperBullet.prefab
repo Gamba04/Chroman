@@ -19886,7 +19886,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxBounces: 12
+  maxBounces: 5
   bounces: 0
 --- !u!50 &8620246065437956456
 Rigidbody2D:
