@@ -1049,7 +1049,7 @@ public class Player : MonoBehaviour, IHittable
 
     private void Die()
     {
-        explosion.Emit(20);
+        explosion.Play();
 
         // Turn off components
         sr.enabled = false;
