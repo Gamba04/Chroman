@@ -41,14 +41,13 @@ public class ExplosiveBox : Box, IKinetic
         base.OnHit(hitterPosition, damage, knockback, layer);
 
         rb.velocity = ((Vector2)kTransform.position - hitterPosition).normalized * knockback;
-
-        animator.SetBool("isHit", true);
     }
 
     protected override void Die()
     {
         base.Die();
 
+        animator.SetBool("isHit", true);
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.ExplosionWindUp);
 
         Timer.CallOnDelay(() =>
