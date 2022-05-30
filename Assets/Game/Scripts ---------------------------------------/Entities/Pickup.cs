@@ -73,7 +73,7 @@ public class Pickup : MonoBehaviour
                 Destroy(gameObject);
             });
 
-            float timer = deathcurve.Evaluate(1 - (deathCounter / deathDuration));
+            float timer = deathDuration > 0 ? deathcurve.Evaluate(1 - (deathCounter / deathDuration)) : 1;
 
             light.color = new Color(light.color.r, light.color.g, light.color.b, timer);
         }
