@@ -129,9 +129,10 @@ public class Timer : MonoBehaviour
     /// <summary> Call a Method after a period of time. </summary>
     public static void CallOnDelay(Action action, float delay, string optionalName = "")
     {
-        if (Instance.requests == null)
+        if (delay <= 0)
         {
-            Instance.requests = new List<Request>();
+            action?.Invoke();
+            return;
         }
 
         Request request = new Request(delay, action, false);
@@ -143,9 +144,10 @@ public class Timer : MonoBehaviour
     /// <summary> Call a Method after a period of time, with a cancellation Action. </summary>
     public static void CallOnDelay(Action action, float delay, ref Action cancelAction, string optionalName = "")
     {
-        if (Instance.requests == null)
+        if (delay <= 0)
         {
-            Instance.requests = new List<Request>();
+            action?.Invoke();
+            return;
         }
 
         Request request = new Request(delay, action, false);
@@ -159,9 +161,10 @@ public class Timer : MonoBehaviour
     /// <summary> Call a Method after a period of unscaled time. </summary>
     public static void CallOnDelayUnscaled(Action action, float delay, string optionalName = "")
     {
-        if (Instance.requests == null)
+        if (delay <= 0)
         {
-            Instance.requests = new List<Request>();
+            action?.Invoke();
+            return;
         }
 
         Request request = new Request(delay, action, true);
@@ -173,9 +176,10 @@ public class Timer : MonoBehaviour
     /// <summary> Call a Method after a period of unscaled time, with a cancellation Action. </summary>
     public static void CallOnDelayUnscaled(Action action, float delay, Action cancelAction, string optionalName = "")
     {
-        if (Instance.requests == null)
+        if (delay <= 0)
         {
-            Instance.requests = new List<Request>();
+            action?.Invoke();
+            return;
         }
 
         Request request = new Request(delay, action, true);

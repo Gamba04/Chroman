@@ -50,23 +50,12 @@ public class Player : MonoBehaviour, IHittable
     private Ghosting ghosting;
     [SerializeField]
     private ParticleSystem explosion;
-
-    //Stevan machetero
     [SerializeField]
-    private ParticleSystem pickedColor;
+    private ParticleSystem unlockColorVFX;
     [SerializeField]
-    private ParticleSystem pickedColor2;
-    [SerializeField]
-    private ParticleSystem pickedColor3;
-    [SerializeField]
-    private ParticleSystem pickedColor4;
-    [SerializeField]
-
     private SpriteRenderer kineticCloudSr;
     [SerializeField]
     private Collider2D kineticCloudCollider;
-    [SerializeField]
-    private ParticleSystem newColorVFX;
 
     [Header("Settings")]
     [SerializeField]
@@ -156,6 +145,7 @@ public class Player : MonoBehaviour, IHittable
     private Color color_Kinetic;
     [SerializeField]
     private Color color_Electric;
+
     [GambaHeader("PickupColors", 0.7f)]
     [SerializeField]
     private Color color_MeleePickup;
@@ -1187,6 +1177,36 @@ public class Player : MonoBehaviour, IHittable
         }
     }
 
+    private void OnUnlockNewColor(ColorState state)
+    {
+        ParticleSystem[] subsystems = unlockColorVFX.GetComponentsInChildren<ParticleSystem>();
+
+        Color targetColor = default;
+
+        switch (state)
+        {
+            case ColorState.Red:
+                targetColor = color_MeleePickup;
+                break;
+
+            case ColorState.Blue:
+                targetColor = color_RangePickup;
+                break;
+
+            case ColorState.Purple:
+                targetColor = color_KineticPickup;
+                break;
+
+            case ColorState.Yellow:
+                targetColor = color_ElectricPickup;
+                break;
+        }
+
+        foreach (ParticleSystem vfx in subsystems) vfx.startColor = targetColor;
+
+        unlockColorVFX.Play();
+    }
+
     //-----------------------------------------------------------------------------------------------
 
     #region Public Methods
@@ -1261,33 +1281,10 @@ public class Player : MonoBehaviour, IHittable
 
         onUpdateColor?.Invoke();
 
-        ChangeColor((ColorState)(amount-1));
+        ColorState newState = (ColorState)(amount - 1);
 
-        switch (this.colorState)
-        {                
-            case ColorState.Red:
-                pickedColor2.startColor = color_MeleePickup;
-                pickedColor3.startColor = color_MeleePickup;
-                pickedColor4.startColor = color_MeleePickup;
-                break;
-            case ColorState.Blue:
-                pickedColor2.startColor = color_RangePickup;
-                pickedColor3.startColor = color_RangePickup;
-                pickedColor4.startColor = color_RangePickup;
-                break;
-            case ColorState.Purple:
-                pickedColor2.startColor = color_KineticPickup;
-                pickedColor3.startColor = color_KineticPickup;
-                pickedColor4.startColor = color_KineticPickup;
-                break;
-            case ColorState.Yellow:
-                pickedColor2.startColor = color_ElectricPickup;
-                pickedColor3.startColor = color_ElectricPickup;
-                pickedColor4.startColor = color_ElectricPickup;
-                break;
-        }
-       
-        pickedColor.Play();
+        ChangeColor(newState);
+        OnUnlockNewColor(newState);
     }
 
     public int GetUnlockedColors()

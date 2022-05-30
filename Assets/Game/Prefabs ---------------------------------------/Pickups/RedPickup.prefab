@@ -4873,6 +4873,7 @@ MonoBehaviour:
   aura: {fileID: 7257561945461446891}
   sprite: {fileID: 3542456512272847333}
   light: {fileID: 8374532827354097822}
+  deathDuration: 2
   detectionRadius: 0.5
   onTrigger:
     m_PersistentCalls:

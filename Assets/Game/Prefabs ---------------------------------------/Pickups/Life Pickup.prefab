@@ -48,8 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 5289896716286663942}
+  aura: {fileID: 0}
   sprite: {fileID: 3542456512272847333}
   light: {fileID: 8374532827354097822}
+  deathDuration: 1
   detectionRadius: 0.5
   onTrigger:
     m_PersistentCalls:
@@ -228,7 +230,7 @@ ParticleSystem:
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -297,7 +299,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -350,7 +352,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.55
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2

@@ -5280,8 +5280,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 3347346261142343415}
+  aura: {fileID: 0}
   sprite: {fileID: 5846192579578109583}
   light: {fileID: 3416833526392719714}
+  deathDuration: 0.6
   detectionRadius: 0.15
   onTrigger:
     m_PersistentCalls:

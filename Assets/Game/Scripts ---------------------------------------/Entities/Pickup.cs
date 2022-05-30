@@ -17,6 +17,8 @@ public class Pickup : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
+    private float deathDuration;
+    [SerializeField]
     private float detectionRadius = 0.5f;
     [SerializeField]
     private UnityEvent onTrigger;
@@ -29,12 +31,6 @@ public class Pickup : MonoBehaviour
 
     private bool dead;
     private float deathCounter;
-    private float deathDuration;
-
-    private void Start()
-    {
-        deathDuration = aura.main.duration;
-    }
 
     private void Update()
     {
@@ -73,7 +69,7 @@ public class Pickup : MonoBehaviour
                 Destroy(gameObject);
             });
 
-            float timer = deathDuration > 0 ? deathcurve.Evaluate(1 - (deathCounter / deathDuration)) : 1;
+            float timer = deathcurve.Evaluate(deathDuration > 0 ? 1 - (deathCounter / deathDuration) : 1);
 
             light.color = new Color(light.color.r, light.color.g, light.color.b, timer);
         }

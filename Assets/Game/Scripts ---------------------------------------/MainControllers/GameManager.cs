@@ -774,6 +774,7 @@ public class GameManager : MonoBehaviour
             playerMaxHp = Player.MaxHealth;
 
             healthController.UpdateHealth((int)playerHp);
+            if (playerHp == 0) healthController.UpdateRegen(0);
 
             onHealthChange?.Invoke(playerHp);
         }
