@@ -15,6 +15,12 @@ public class HealthController : MonoBehaviour
     [SerializeField]
     private float separation;
 
+    private List<HealthCell> healthCells = new List<HealthCell>();
+
+    private int health;
+    private int maxHealth;
+    private float currentRegen;
+
     #region Init
 
     public void Init(int maxHealth)
@@ -26,7 +32,7 @@ public class HealthController : MonoBehaviour
     {
         for (int i = 0; i < maxHealth; i++)
         {
-            
+            IncreaseMaxHealth();
         }
     }
 
@@ -36,21 +42,87 @@ public class HealthController : MonoBehaviour
 
     #region Public Mehtods
 
-    public void SetHealth()
+    public void UpdateHealth(int health)
     {
+        if (health == maxHealth) currentRegen = 0;
 
+        for (int i = 0; i < healthCells.Count; i++)
+        {
+            HealthCell cell = healthCells[i];
+
+            if (i == health) // Current cell
+            {
+                cell.SetRegen(currentRegen);
+            }
+            else // Other cell
+            {
+                cell.SetRegen(0);
+            }
+
+            cell.SetState(i < health);
+        }
+
+        this.health = health;
     }
 
-    public void InreaseMaxHealth()
+    public void IncreaseMaxHealth()
     {
-        
+        HealthCell cell = Instantiate(cellPrefab, cellsParent);
+        cell.name = cellPrefab.name;
+
+        cell.transform.localPosition = Vector3.right * maxHealth * separation;
+
+        healthCells.Add(cell);
+
+        maxHealth++;
+
+        health++;
+        UpdateHealth(health);
     }
 
-    #endregion
+    public void ReduceMaxHealth()
+    {
+        HealthCell cell = healthCells[healthCells.Count - 1];
 
-    // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        healthCells.Remove(cell);
+        Destroy(cell);
 
-    #region Other
+        maxHealth--;
+    }
+
+    public void UpdateRegen(float value)
+    {
+        if (health == maxHealth) return;
+
+        currentRegen = value;
+
+        healthCells[health].SetRegen(value);
+    }
+
+    public void UpdateMaxHealth(float value)
+    {
+        value = Mathf.Floor(value);
+
+        if (maxHealth != value)
+        {
+            int difference = (int)value - maxHealth;
+
+            if (value > maxHealth)
+            {
+                for (int i = 0; i < difference; i++)
+                {
+                    IncreaseMaxHealth();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < -difference; i++)
+                {
+                    ReduceMaxHealth();
+                }
+            }
+        }
+    }
 
     #endregion
 

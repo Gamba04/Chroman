@@ -9,7 +9,9 @@ public class HealthCell : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
-    private Image image;
+    private Image cellImage;
+    [SerializeField]
+    private Image regenImage;
 
     [Header("Settings")]
     [SerializeField]
@@ -21,7 +23,12 @@ public class HealthCell : MonoBehaviour
 
     public void SetState(bool value)
     {
-        image.sprite = value ? fullSprite : emptySprite;
+        cellImage.sprite = value ? fullSprite : emptySprite;
+    }
+
+    public void SetRegen(float value)
+    {
+        regenImage.fillAmount = value;
     }
 
     #endregion

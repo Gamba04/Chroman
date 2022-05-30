@@ -47,6 +47,8 @@ public class ExplosiveBox : Box, IKinetic
 
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.ExplosionWindUp);
 
+        damageCooldown = damageDuration;
+
         Timer.CallOnDelay(() =>
         {
             explosion.Play();
