@@ -24,6 +24,8 @@ public class ExplosiveBox : Box, IKinetic
     private LayerMask hitLayers;
     [SerializeField]
     private Collider2D explosionCollider;
+    [SerializeField]
+    Animator animator;
 
     protected override void Start()
     {
@@ -45,6 +47,7 @@ public class ExplosiveBox : Box, IKinetic
     {
         base.Die();
 
+        animator.SetBool("isHit", true);
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.ExplosionWindUp);
 
         damageCooldown = damageDuration;

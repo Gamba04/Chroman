@@ -50,10 +50,23 @@ public class Player : MonoBehaviour, IHittable
     private Ghosting ghosting;
     [SerializeField]
     private ParticleSystem explosion;
+
+    //Stevan machetero
     [SerializeField]
+    private ParticleSystem pickedColor;
+    [SerializeField]
+    private ParticleSystem pickedColor2;
+    [SerializeField]
+    private ParticleSystem pickedColor3;
+    [SerializeField]
+    private ParticleSystem pickedColor4;
+    [SerializeField]
+
     private SpriteRenderer kineticCloudSr;
     [SerializeField]
     private Collider2D kineticCloudCollider;
+    [SerializeField]
+    private ParticleSystem newColorVFX;
 
     [Header("Settings")]
     [SerializeField]
@@ -143,6 +156,15 @@ public class Player : MonoBehaviour, IHittable
     private Color color_Kinetic;
     [SerializeField]
     private Color color_Electric;
+    [GambaHeader("PickupColors", 0.7f)]
+    [SerializeField]
+    private Color color_MeleePickup;
+    [SerializeField]
+    private Color color_RangePickup;
+    [SerializeField]
+    private Color color_KineticPickup;
+    [SerializeField]
+    private Color color_ElectricPickup;
 
     [Header("Transitions")]
     [SerializeField]
@@ -1238,6 +1260,34 @@ public class Player : MonoBehaviour, IHittable
         UnlockedColors = amount;
 
         onUpdateColor?.Invoke();
+
+        ChangeColor((ColorState)(amount-1));
+
+        switch (this.colorState)
+        {                
+            case ColorState.Red:
+                pickedColor2.startColor = color_MeleePickup;
+                pickedColor3.startColor = color_MeleePickup;
+                pickedColor4.startColor = color_MeleePickup;
+                break;
+            case ColorState.Blue:
+                pickedColor2.startColor = color_RangePickup;
+                pickedColor3.startColor = color_RangePickup;
+                pickedColor4.startColor = color_RangePickup;
+                break;
+            case ColorState.Purple:
+                pickedColor2.startColor = color_KineticPickup;
+                pickedColor3.startColor = color_KineticPickup;
+                pickedColor4.startColor = color_KineticPickup;
+                break;
+            case ColorState.Yellow:
+                pickedColor2.startColor = color_ElectricPickup;
+                pickedColor3.startColor = color_ElectricPickup;
+                pickedColor4.startColor = color_ElectricPickup;
+                break;
+        }
+       
+        pickedColor.Play();
     }
 
     public int GetUnlockedColors()

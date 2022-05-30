@@ -14,11 +14,11 @@ public class KeysFeedback : MonoBehaviour
         [SerializeField]
         public SpriteRenderer sr;
         [SerializeField]
-        private KeyCode key;
-        [SerializeField]
         private bool mouse;
         [SerializeField]
         private int mouseButton;
+        [SerializeField]
+        private List<KeyCode> keys;
 
         public void UpdateColor(Color defaultColor, Color pressedColor)
         {
@@ -38,7 +38,7 @@ public class KeysFeedback : MonoBehaviour
                 }
                 else
                 {
-                    if (Input.GetKey(key))
+                    if (IsAnyKeyPressed())
                     {
                         sr.color = pressedColor;
                     }
@@ -50,6 +50,22 @@ public class KeysFeedback : MonoBehaviour
             }
         }
 
+        private bool IsAnyKeyPressed()
+        {
+            bool isPressed = false;
+
+            for (int i = 0; i < keys.Count; i++)
+            {
+                if (Input.GetKey(keys[i]))
+                {
+                    isPressed = true;
+                    break;
+                }
+            }
+
+            return isPressed;
+        }
+
         public void SetName()
         {
             string srName = (sr != null) ? sr.gameObject.name : null;
@@ -59,8 +75,22 @@ public class KeysFeedback : MonoBehaviour
             }
             else
             {
-                name = $"{key} : {srName}";
+                name = $"{GetKeyNames()} : {srName}";
             }
+        }
+
+        private string GetKeyNames()
+        {
+            string text = "";
+
+            for (int i = 0; i < keys.Count; i++)
+            {
+                text += keys[i].ToString();
+
+                if (i < keys.Count - 1) text += ", ";
+            }
+
+            return text;
         }
     }
 
@@ -101,4 +131,5 @@ public class KeysFeedback : MonoBehaviour
             keys[i].SetName();
         }
     }
+
 }

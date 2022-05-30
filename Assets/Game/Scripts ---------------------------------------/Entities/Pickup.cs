@@ -9,6 +9,8 @@ public class Pickup : MonoBehaviour
     [SerializeField]
     private ParticleSystem explosion;
     [SerializeField]
+    private ParticleSystem aura;
+    [SerializeField]
     private GameObject sprite;
     [SerializeField]
     private new SpriteRenderer light;
@@ -31,7 +33,7 @@ public class Pickup : MonoBehaviour
 
     private void Start()
     {
-        deathDuration = explosion.main.duration;
+        deathDuration = aura.main.duration;
     }
 
     private void Update()
@@ -79,7 +81,8 @@ public class Pickup : MonoBehaviour
 
     protected virtual void Die()
     {
-        explosion.Emit(20);
+        explosion.Play();
+        if (aura) aura.Stop();
 
         // Turn off components
         sprite.SetActive(false);

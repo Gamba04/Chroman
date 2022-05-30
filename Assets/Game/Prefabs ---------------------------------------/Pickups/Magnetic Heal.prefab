@@ -5335,7 +5335,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  pickupSound: 17
+  pickupSound: 35
 --- !u!114 &6360576026057798364
 MonoBehaviour:
   m_ObjectHideFlags: 0
