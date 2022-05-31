@@ -808,7 +808,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < colorAmount; i++)
         {
-            if (i <= Player.GetUnlockedColors())
+            if (i < Player.GetUnlockedColors())
             {
                 if ((int)Player.GetColorState() == i)
                 {
