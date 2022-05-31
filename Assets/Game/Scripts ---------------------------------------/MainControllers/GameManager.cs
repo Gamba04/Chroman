@@ -891,7 +891,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveDataInPosition(Transform overrideTransform)
     {
-        player.AddHealth(1);
+        //player.AddHealth(1);
         savedData.Save(sceneObjects, overrideTransform.position, player.Health, player.GetUnlockedColors(), player.GetColorState(), healthRegen, parentObjects);
     }
 
