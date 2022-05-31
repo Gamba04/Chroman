@@ -23,7 +23,7 @@ public class RayLaser : Laser
     {
         posA = origin;
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin + direction.normalized * margin, direction, maxDistance);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, direction, maxDistance);
 
         bool checkHit = false;
 
@@ -76,12 +76,12 @@ public class RayLaser : Laser
 
     public void SetRay(Vector2 origin, Vector2 direction, float maxDistance = -1)
     {
-        this.origin = origin;
+        this.origin = origin + direction.normalized * margin;
         this.direction = direction;
 
         if (maxDistance >= 0)
         {
-            this.maxDistance = maxDistance;
+            this.maxDistance = maxDistance - margin * 2;
         }
     }
 }

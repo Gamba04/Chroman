@@ -14823,7 +14823,7 @@ MonoBehaviour:
   moveSteadyTreshold: 0.1
   externalFriction: 0.45
   defaultMass: 5
-  dashMass: 10
+  dashMass: 25
   maxCooldown_Invincible: 1
   maxCooldown_Dash: 0.6
   maxCooldown_Melee: 0.4

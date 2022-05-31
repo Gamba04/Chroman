@@ -667,7 +667,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 0.5, y: 0, z: 0}
+    m_Scale: {x: 0.5, y: 2, z: 0}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -4997,9 +4997,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4893437309187655609}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 0.25, y: 2, z: 0}
   m_Children:
   - {fileID: 5285935182561555872}
   - {fileID: 4168544578824063851}
@@ -5055,7 +5055,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5433515520049071884}
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 5082294552369817844}
@@ -9921,9 +9921,9 @@ MonoBehaviour:
   - name: 'Bloom : 100'
     sr: {fileID: 8896100500930140591}
     activeAlpha: 100
-  - name: 'HorizontalLight : 255'
+  - name: 'HorizontalLight : 100'
     sr: {fileID: 6204446774114473984}
-    activeAlpha: 255
+    activeAlpha: 100
   - name: 'Basic Light : 200'
     sr: {fileID: 5082294552369817851}
     activeAlpha: 200
@@ -9948,7 +9948,7 @@ MonoBehaviour:
   respondToTag: 0
   distanceMultiplier: 2
   posA: {x: 0, y: 0}
-  posB: {x: 0, y: 0}
+  posB: {x: 2, y: 0}
   activated: 1
   isActiveOnDistance: 0
   updateLaser: 0
@@ -9957,6 +9957,7 @@ MonoBehaviour:
   maxDistance: 100
   worldCollisionLayers: 000000000b000000
   hitPoint: {fileID: 1484242603796939755}
+  margin: 0.4
 --- !u!95 &3820208180221076957
 Animator:
   serializedVersion: 3
@@ -10079,7 +10080,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 221de0265439765459817e1a0841cf62, type: 3}
-  m_Color: {r: 1, g: 0.4047646, b: 0.24056602, a: 1}
+  m_Color: {r: 1, g: 0.4047646, b: 0.24056602, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
