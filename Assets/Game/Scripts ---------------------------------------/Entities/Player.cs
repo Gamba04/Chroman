@@ -1276,15 +1276,16 @@ public class Player : MonoBehaviour, IHittable
 
     public void SetUnlockedColors(int amount)
     {
+        ColorState newState = (ColorState)(amount - 1);
+
+        if (amount > unlockedColors) OnUnlockNewColor(newState);
+
         unlockedColors = amount;
         UnlockedColors = amount;
 
-        onUpdateColor?.Invoke();
-
-        ColorState newState = (ColorState)(amount - 1);
-
         ChangeColor(newState);
-        OnUnlockNewColor(newState);
+
+        onUpdateColor?.Invoke();
     }
 
     public int GetUnlockedColors()

@@ -741,10 +741,8 @@ public class GameManager : MonoBehaviour
 
         if (healthRegen >= 1)
         {
-            playerHp++;
             player.Health++;
             healthRegen = 0;
-            healthController.UpdateHealth((int)playerHp);
         }
 
         healthController.UpdateRegen(healthRegen);

@@ -81,7 +81,7 @@ public class RayLaser : Laser
 
         if (maxDistance >= 0)
         {
-            this.maxDistance = maxDistance - margin * 2;
+            this.maxDistance = maxDistance - margin * 2 ;
         }
     }
 }
