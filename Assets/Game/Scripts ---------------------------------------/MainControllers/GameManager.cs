@@ -218,82 +218,6 @@ public class GameManager : MonoBehaviour
     }
 
     [Serializable]
-    private class ColorArrowsUI
-    {
-        public enum ArrowState
-        {
-            Selected,
-            Deselected,
-            Locked,
-        }
-
-        [SerializeField, HideInInspector] private string name;
-
-        [ReadOnly, SerializeField]
-        public ArrowState state;
-        [SerializeField]
-        public Image arrow;
-        [SerializeField]
-        public Image lockedArrow;
-
-        public float CurrentAlpha { get; private set; }
-
-        public void SetState(ArrowState state)
-        {
-            this.state = state;
-            switch (state)
-            {
-                case ArrowState.Selected:
-                    CurrentAlpha = 1;
-
-                    if (arrow != null)
-                    {
-                        arrow.gameObject.SetActive(true);
-                        arrow.color = new Color(arrow.color.r, arrow.color.g, arrow.color.b, 1f);
-                    }
-
-                    if (lockedArrow != null)
-                    {
-                        lockedArrow.gameObject.SetActive(false);
-                    }
-                    break;
-                case ArrowState.Deselected:
-                    CurrentAlpha = 0.5f;
-
-                    if (arrow != null)
-                    {
-                        arrow.gameObject.SetActive(true);
-                        arrow.color = new Color(arrow.color.r, arrow.color.g, arrow.color.b, 0.5f);
-                    }
-
-                    if (lockedArrow != null)
-                    {
-                        lockedArrow.gameObject.SetActive(false);
-                    }
-                    break;
-                case ArrowState.Locked:
-                    CurrentAlpha = 1;
-
-                    if (arrow != null)
-                    {
-                        arrow.gameObject.SetActive(false);
-                    }
-
-                    if (lockedArrow != null)
-                    {
-                        lockedArrow.gameObject.SetActive(true);
-                    }
-                    break;
-            }
-        }
-
-        public void SetName(int index)
-        {
-            name = $"{(Player.ColorState)index} Arrow";
-        }
-    }
-
-    [Serializable]
     private class HeartUI
     {
         public enum HeartState
@@ -405,12 +329,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CameraController cameraController;
     [SerializeField]
-    private HealthController healthController;
+    private HealthControllerUI healthController;
+    [SerializeField]
+    private ColorSelectorUI colorSelector;
     [Space()]
     [SerializeField]
     private List<ColorWall> colorWalls = new List<ColorWall>();
-    [SerializeField]
-    private List<ColorArrowsUI> colorArrows = new List<ColorArrowsUI>();
     [SerializeField]
     private bool updateHearts;
     [Space()]
@@ -674,7 +598,10 @@ public class GameManager : MonoBehaviour
         DamageScreenUpdate();
         DetectColorChanges();
         BossHealthBarUpdate();
+    }
 
+    private void LateUpdate()
+    {
         TransitionsUpdate();
     }
 
@@ -745,7 +672,7 @@ public class GameManager : MonoBehaviour
             healthRegen = 0;
         }
 
-        healthController.UpdateRegen(healthRegen);
+        healthController.SetRegen(healthRegen);
     }
 
     private void DetectHealthChanges()
@@ -771,8 +698,8 @@ public class GameManager : MonoBehaviour
             playerHp = Player.Health;
             playerMaxHp = Player.MaxHealth;
 
-            healthController.UpdateHealth((int)playerHp);
-            if (playerHp == 0) healthController.UpdateRegen(0);
+            healthController.SetHealth((int)playerHp);
+            if (playerHp == 0) healthController.SetRegen(0);
 
             onHealthChange?.Invoke(playerHp);
         }
@@ -780,7 +707,7 @@ public class GameManager : MonoBehaviour
         {
             playerMaxHp = Player.MaxHealth;
 
-            healthController.UpdateMaxHealth(playerMaxHp);
+            healthController.SetMaxHealth(playerMaxHp);
         }
     }
 
@@ -804,26 +731,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateColorHud()
     {
-        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length - 1;
-
-        for (int i = 0; i < colorAmount; i++)
-        {
-            if (i < Player.GetUnlockedColors())
-            {
-                if ((int)Player.GetColorState() == i)
-                {
-                    colorArrows[i].SetState(ColorArrowsUI.ArrowState.Selected);
-                }
-                else
-                {
-                    colorArrows[i].SetState(ColorArrowsUI.ArrowState.Deselected);
-                }
-            }
-            else
-            {
-                colorArrows[i].SetState(ColorArrowsUI.ArrowState.Locked);
-            }
-        }
+        colorSelector.UpdateColorState(Player.GetColorState(), Player.GetUnlockedColors());
     }
 
     #endregion
@@ -901,9 +809,9 @@ public class GameManager : MonoBehaviour
 
         playerHp = Player.Health;
 
-        healthController.UpdateMaxHealth(playerMaxHp);
-        healthController.UpdateHealth((int)playerHp);
-        healthController.UpdateRegen(healthRegen);
+        healthController.SetMaxHealth(playerMaxHp);
+        healthController.SetHealth((int)playerHp);
+        healthController.SetRegen(healthRegen);
 
         SetPause(false);
 
@@ -1224,19 +1132,8 @@ public class GameManager : MonoBehaviour
 
         if (hudTransition.IsOnTransition)
         {
-            for (int i = 0; i < colorArrows.Count; i++)
-            {
-                ColorArrowsUI c = colorArrows[i];
-                if (c.arrow != null)
-                {
-                    c.arrow.color = new Color(c.arrow.color.r, c.arrow.color.g, c.arrow.color.b, hudTransition.value * c.CurrentAlpha);
-                }
-
-                if (c.lockedArrow != null)
-                {
-                    c.lockedArrow.color = new Color(c.lockedArrow.color.r, c.lockedArrow.color.g, c.lockedArrow.color.b, hudTransition.value * c.CurrentAlpha);
-                }
-            }
+            healthController.SetAlpha(hudTransition.value);
+            colorSelector.SetAlpha(hudTransition.value);
         }
     }
 
@@ -1326,21 +1223,6 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < colorAmount; i++)
             {
                 colorWalls.Add(new ColorWall(((Player.ColorState)i).ToString()));
-            }
-        }
-
-        #endregion
-
-        #region ColorArrowsUI
-
-        if (colorArrows == null || colorArrows.Count != colorAmount)
-        {
-            colorArrows = new List<ColorArrowsUI>();
-
-            for (int i = 0; i < colorAmount; i++)
-            {
-                colorArrows.Add(new ColorArrowsUI());
-                colorArrows[i].SetName(i);
             }
         }
 

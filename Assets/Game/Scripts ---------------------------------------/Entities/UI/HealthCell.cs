@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthCell : MonoBehaviour
@@ -29,6 +25,12 @@ public class HealthCell : MonoBehaviour
     public void SetRegen(float value)
     {
         regenImage.fillAmount = value;
+    }
+
+    public void SetAlpha(float alpha)
+    {
+        cellImage.color = GambaFunctions.GetColorWithAlpha(cellImage.color, alpha);
+        regenImage.color = GambaFunctions.GetColorWithAlpha(regenImage.color, alpha);
     }
 
     #endregion
