@@ -23,7 +23,7 @@ public class Box : MonoBehaviour, IHittable
     private Color damageColor;
     [SerializeField]
     [Range(0.1f, 1)]
-    private float damageDuration = 0.1f;
+    protected float damageDuration = 0.1f;
     [SerializeField]
     private AnimationCurve damageCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f,1), new Keyframe(1,0));
     [SerializeField]
@@ -39,7 +39,7 @@ public class Box : MonoBehaviour, IHittable
     [SerializeField]
     private float healSpawnSpeed = 3;
 
-    private float damageCooldown;
+    protected float damageCooldown;
 
     protected bool dead;
     private float deathCounter;

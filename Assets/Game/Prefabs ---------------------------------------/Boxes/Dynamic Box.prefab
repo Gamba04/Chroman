@@ -4931,7 +4931,7 @@ MonoBehaviour:
   healSpawnSpeed: 3
   explosion: {fileID: 5834211591496429104}
   light: {fileID: 1527892741254264539}
-  defaultMass: 30
+  defaultMass: 20
   grabbedMass: 5
 --- !u!212 &8774699691154302967
 SpriteRenderer:
@@ -4995,7 +4995,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 30
+  m_Mass: 20
   m_LinearDrag: 2
   m_AngularDrag: 2
   m_GravityScale: 0

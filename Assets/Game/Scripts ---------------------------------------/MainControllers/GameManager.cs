@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
             player.SetUnlockedColors(playerUnlockedColors);
             player.ChangeColor(playerColor);
 
-            gameManager.heartRegenState = heartRegen;
+            gameManager.healthRegen = heartRegen;
             if (!bossKilled)
             {
                 gameManager.boss?.ResetBoss();
@@ -214,82 +214,6 @@ public class GameManager : MonoBehaviour
                     level = -1;
                 }
             }
-        }
-    }
-
-    [Serializable]
-    private class ColorArrowsUI
-    {
-        public enum ArrowState
-        {
-            Selected,
-            Deselected,
-            Locked,
-        }
-
-        [SerializeField, HideInInspector] private string name;
-
-        [ReadOnly, SerializeField]
-        public ArrowState state;
-        [SerializeField]
-        public Image arrow;
-        [SerializeField]
-        public Image lockedArrow;
-
-        public float CurrentAlpha { get; private set; }
-
-        public void SetState(ArrowState state)
-        {
-            this.state = state;
-            switch (state)
-            {
-                case ArrowState.Selected:
-                    CurrentAlpha = 1;
-
-                    if (arrow != null)
-                    {
-                        arrow.gameObject.SetActive(true);
-                        arrow.color = new Color(arrow.color.r, arrow.color.g, arrow.color.b, 1f);
-                    }
-
-                    if (lockedArrow != null)
-                    {
-                        lockedArrow.gameObject.SetActive(false);
-                    }
-                    break;
-                case ArrowState.Deselected:
-                    CurrentAlpha = 0.5f;
-
-                    if (arrow != null)
-                    {
-                        arrow.gameObject.SetActive(true);
-                        arrow.color = new Color(arrow.color.r, arrow.color.g, arrow.color.b, 0.5f);
-                    }
-
-                    if (lockedArrow != null)
-                    {
-                        lockedArrow.gameObject.SetActive(false);
-                    }
-                    break;
-                case ArrowState.Locked:
-                    CurrentAlpha = 1;
-
-                    if (arrow != null)
-                    {
-                        arrow.gameObject.SetActive(false);
-                    }
-
-                    if (lockedArrow != null)
-                    {
-                        lockedArrow.gameObject.SetActive(true);
-                    }
-                    break;
-            }
-        }
-
-        public void SetName(int index)
-        {
-            name = $"{(Player.ColorState)index} Arrow";
         }
     }
 
@@ -404,18 +328,16 @@ public class GameManager : MonoBehaviour
     private Boss boss;
     [SerializeField]
     private CameraController cameraController;
+    [SerializeField]
+    private HealthControllerUI healthController;
+    [SerializeField]
+    private ColorSelectorUI colorSelector;
     [Space()]
     [SerializeField]
     private List<ColorWall> colorWalls = new List<ColorWall>();
     [SerializeField]
-    private List<ColorArrowsUI> colorArrows = new List<ColorArrowsUI>();
-    [SerializeField]
-    private List<HeartUI> heartsUI = new List<HeartUI>();
-    [SerializeField]
     private bool updateHearts;
     [Space()]
-    [SerializeField]
-    private Image heartRegenUI;
     [SerializeField]
     private Image damageScreen;
     [SerializeField]
@@ -519,7 +441,7 @@ public class GameManager : MonoBehaviour
 
     [GambaHeader("Info ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------", 0, 0, 0, 0.4f)]
     [ReadOnly,SerializeField]
-    private float heartRegenState;
+    private float healthRegen;
     [ReadOnly,SerializeField]
     private float playerHp;
     [ReadOnly,SerializeField]
@@ -653,10 +575,8 @@ public class GameManager : MonoBehaviour
         playerHp = Player.Health;
         playerMaxHp = Player.MaxHealth;
 
-        CreateHealthBar();
+        healthController.Init((int)playerMaxHp);
 
-        UpdateHealthUI();
-        UpdateHeartRegen();
         UpdateColorHud();
 
         SaveData();
@@ -678,7 +598,10 @@ public class GameManager : MonoBehaviour
         DamageScreenUpdate();
         DetectColorChanges();
         BossHealthBarUpdate();
+    }
 
+    private void LateUpdate()
+    {
         TransitionsUpdate();
     }
 
@@ -737,31 +660,30 @@ public class GameManager : MonoBehaviour
 
     #region Health
 
-    private void CreateHealthBar()
+    public void IncreaseRegen(float amount)
     {
-        for (int i = 0; i < playerMaxHp; i++)
+        if (playerHp == playerMaxHp) return;
+
+        healthRegen += amount;
+
+        if (healthRegen >= 1)
         {
-            AddHealthCell();
+            player.Health++;
+            healthRegen = 0;
         }
-    }
 
-    private void AddHealthCell()
-    {
-
+        healthController.SetRegen(healthRegen);
     }
 
     private void DetectHealthChanges()
     {
         if (playerHp != Player.Health)
         {
-            UpdateHealthUI(); 
-            UpdateHeartRegen();
-
             if (Player.Health < playerHp)
             {
                 // Lost health;
                 damageScreenAlpha += damageScreenIncrement;
-                HeartsAnimSetTrigger("Health Down");
+                //HeartsAnimSetTrigger("Health Down");
 
                 AudioPlayer.PlaySFX(AudioPlayer.SFXTag.DamageTaken);
             }
@@ -769,66 +691,23 @@ public class GameManager : MonoBehaviour
             {
                 //Gained health
                 damageScreenAlpha -= damageScreenIncrement;
-                HeartsAnimSetTrigger("Health Up");
+                //HeartsAnimSetTrigger("Health Up");
                 AudioPlayer.PlaySFX(AudioPlayer.SFXTag.HealthRegen);
             }
 
             playerHp = Player.Health;
             playerMaxHp = Player.MaxHealth;
 
+            healthController.SetHealth((int)playerHp);
+            if (playerHp == 0) healthController.SetRegen(0);
+
             onHealthChange?.Invoke(playerHp);
         }
         else if (playerMaxHp != Player.MaxHealth)
         {
             playerMaxHp = Player.MaxHealth;
-            UpdateHealthUI();
-            UpdateHeartRegen();
-        }
-    }
 
-    private void UpdateHealthUI()
-    {
-        if (heartsUI != null && heartsUI.Count <= heartsAbsoluteMax)
-        {
-            for (int i = 0; i < heartsUI.Count; i++)
-            {
-                if (i > Player.MaxHealth - 1)
-                {
-                    heartsUI[i].SetState(HeartUI.HeartState.Nothing);
-                }
-                else
-                {
-                    if (i <= player.Health - 1)
-                    {
-                        heartsUI[i].SetState(HeartUI.HeartState.On);
-                    }
-                    else
-                    {
-                        heartsUI[i].SetState(HeartUI.HeartState.Off);
-                    }
-                }
-            }
-
-            if (playerHp > 0)
-            {
-                heartRegenUI.gameObject.SetActive(true);
-                heartRegenUI.rectTransform.localPosition = heartsUI[Mathf.RoundToInt(player.Health)].position;
-            }
-            else
-            {
-                heartRegenUI.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void HeartsAnimSetTrigger(string parameter)
-    {
-        for (int i = 0; i < heartsUI.Count; i++)
-        {
-            if (i < player.Health)
-            {
-                heartsUI[i].SetTrigger(parameter);
-            }
+            healthController.SetMaxHealth(playerMaxHp);
         }
     }
 
@@ -846,64 +725,13 @@ public class GameManager : MonoBehaviour
         damageScreen.color = new Color(damageScreen.color.r, damageScreen.color.g, damageScreen.color.b, damageScreenAlpha);
     }
 
-    //-----------------------------------------------------------------------------------------------
-
-    private void UpdateHeartRegen()
-    {
-        if (Player.Health <= 0)
-        {
-            heartRegenUI.enabled = false;
-        }
-        else
-        {
-            heartRegenUI.enabled = true;
-
-            if (heartRegenState > 0 && player.Health == Player.MaxHealth)
-            {
-                heartRegenState = 0;
-            }
-
-            if (heartRegenState >= 1 && player.Health > 0)
-            {
-                heartRegenState = 1;
-
-                if (player.Health < Player.MaxHealth)
-                {
-                    player.AddHealth(1);
-                    heartRegenState = 0;
-                }
-            }
-
-            heartRegenUI.fillAmount = heartRegenState;
-        }
-    }
-
     #endregion
 
     #region Color State
 
     private void UpdateColorHud()
     {
-        int colorAmount = Enum.GetValues(typeof(Player.ColorState)).Length - 1;
-
-        for (int i = 0; i < colorAmount; i++)
-        {
-            if (i <= Player.GetUnlockedColors())
-            {
-                if ((int)Player.GetColorState() == i)
-                {
-                    colorArrows[i].SetState(ColorArrowsUI.ArrowState.Selected);
-                }
-                else
-                {
-                    colorArrows[i].SetState(ColorArrowsUI.ArrowState.Deselected);
-                }
-            }
-            else
-            {
-                colorArrows[i].SetState(ColorArrowsUI.ArrowState.Locked);
-            }
-        }
+        colorSelector.UpdateColorState(Player.GetColorState(), Player.GetUnlockedColors());
     }
 
     #endregion
@@ -966,13 +794,13 @@ public class GameManager : MonoBehaviour
 
     public void SaveData()
     {
-        savedData.Save(sceneObjects, player.transform.position, player.Health, player.GetUnlockedColors(), player.GetColorState(), heartRegenState, parentObjects);
+        savedData.Save(sceneObjects, player.transform.position, player.Health, player.GetUnlockedColors(), player.GetColorState(), healthRegen, parentObjects);
     }
 
     public void SaveDataInPosition(Transform overrideTransform)
     {
-        player.AddHealth(1);
-        savedData.Save(sceneObjects, overrideTransform.position, player.Health, player.GetUnlockedColors(), player.GetColorState(), heartRegenState, parentObjects);
+        //player.AddHealth(1);
+        savedData.Save(sceneObjects, overrideTransform.position, player.Health, player.GetUnlockedColors(), player.GetColorState(), healthRegen, parentObjects);
     }
 
     public void LoadData()
@@ -980,8 +808,11 @@ public class GameManager : MonoBehaviour
         savedData.Load(sceneObjects, player, this, ref sceneObjects);
 
         playerHp = Player.Health;
-        UpdateHealthUI();
-        UpdateHeartRegen();
+
+        healthController.SetMaxHealth(playerMaxHp);
+        healthController.SetHealth((int)playerHp);
+        healthController.SetRegen(healthRegen);
+
         SetPause(false);
 
         onLoadData?.Invoke();
@@ -997,7 +828,6 @@ public class GameManager : MonoBehaviour
         Instance.player.SetImmobile(false);
 
         Instance.damageScreenAlpha = 0;
-        Instance.heartRegenUI.enabled = true;
 
         Instance.LoadData();
         Instance.SaveData();
@@ -1044,12 +874,14 @@ public class GameManager : MonoBehaviour
 
             if (TargetPlatform != Platform.WebGL) Instance.lowPassFilterTransition.StartTransitionUnscaled(Instance.LPFLowValue, false);
             if (TargetPlatform == Platform.WebGL) Instance.pauseVolumeTransition.StartTransitionUnscaled(Instance.pauseLowValue, false);
-            Instance.blurTransition.StartTransitionUnscaled(Instance.blurMaxAmount, ()=>
+
+            Instance.blurTransition.StartTransitionUnscaled(Instance.blurMaxAmount, () =>
             {
                 if (Instance.heavyWorldObjects) Instance.heavyWorldObjects.SetActive(false);
                 Instance.postProcess.PauseShaders(true);
                 Instance.postProcess.SetBlurAmount(Instance.blurMaxAmount);
             });
+
             Instance.hudTransition.StartTransitionUnscaled(0);
             Instance.pauseController.SetPauseTransition(true);
 
@@ -1093,8 +925,8 @@ public class GameManager : MonoBehaviour
     {
         Player.MaxHealth += amount;
         Player.AddHealth(amount);
-        UpdateHealthUI();
-        UpdateHeartRegen();
+
+        healthController.IncreaseMaxHealth();
     }
 
     public void ReloadScene()
@@ -1251,9 +1083,7 @@ public class GameManager : MonoBehaviour
     {
         if (Player.Health < Player.MaxHealth)
         {
-            Instance.heartRegenState += amount;
-
-            Instance.UpdateHeartRegen();
+            Instance.IncreaseRegen(amount);
         }
     }
 
@@ -1302,38 +1132,8 @@ public class GameManager : MonoBehaviour
 
         if (hudTransition.IsOnTransition)
         {
-            for (int i = 0; i < heartsUI.Count; i++)
-            {
-                HeartUI h = heartsUI[i];
-                if (h.heart != null && h.emptyHeart != null)
-                {
-                    if (i < Player.MaxHealth)
-                    {
-                        h.heart.color = new Color(h.heart.color.r, h.heart.color.g, h.heart.color.b, hudTransition.value);
-                        h.emptyHeart.color = new Color(h.emptyHeart.color.r, h.emptyHeart.color.g, h.emptyHeart.color.b, hudTransition.value * HeartUI.EmptyHeartAlpha);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-
-            heartRegenUI.color = new Color(heartRegenUI.color.r, heartRegenUI.color.g, heartRegenUI.color.b, hudTransition.value);
-
-            for (int i = 0; i < colorArrows.Count; i++)
-            {
-                ColorArrowsUI c = colorArrows[i];
-                if (c.arrow != null)
-                {
-                    c.arrow.color = new Color(c.arrow.color.r, c.arrow.color.g, c.arrow.color.b, hudTransition.value * c.CurrentAlpha);
-                }
-
-                if (c.lockedArrow != null)
-                {
-                    c.lockedArrow.color = new Color(c.lockedArrow.color.r, c.lockedArrow.color.g, c.lockedArrow.color.b, hudTransition.value * c.CurrentAlpha);
-                }
-            }
+            healthController.SetAlpha(hudTransition.value);
+            colorSelector.SetAlpha(hudTransition.value);
         }
     }
 
@@ -1423,78 +1223,6 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < colorAmount; i++)
             {
                 colorWalls.Add(new ColorWall(((Player.ColorState)i).ToString()));
-            }
-        }
-
-        #endregion
-
-        #region ColorArrowsUI
-
-        if (colorArrows == null || colorArrows.Count != colorAmount)
-        {
-            colorArrows = new List<ColorArrowsUI>();
-
-            for (int i = 0; i < colorAmount; i++)
-            {
-                colorArrows.Add(new ColorArrowsUI());
-                colorArrows[i].SetName(i);
-            }
-        }
-
-        #endregion
-
-        #region HeartsUI
-
-        if (parentHeartsUI != null)
-        {
-            if (heartsUI == null || heartsUI.Count != heartsAbsoluteMax || updateHearts)
-            {
-                updateHearts = false;
-
-                // Destroy Previous Children
-                Image[] existingChildren = parentHeartsUI.GetComponentsInChildren<Image>();
-
-                List<GameObject> tempChildren = new List<GameObject>();
-
-                for (int i = 0; i < existingChildren.Length; i++)
-                {
-                    tempChildren.Add(existingChildren[i].gameObject);
-                }
-
-                foreach (GameObject g in tempChildren)
-                {
-                    GambaFunctions.DestroyInEditor(g);
-                }
-
-                // Create hearts
-                heartsUI = new List<HeartUI>(heartsAbsoluteMax);
-
-                for (int i = 0; i < heartsAbsoluteMax; i++)
-                {
-                    heartsUI.Add(new HeartUI());
-
-                    HeartUI h = heartsUI[i];
-
-                    // Create GameObjects
-                    h.heart = new GameObject($"Heart_{i}", typeof(Image), typeof(Animator)).GetComponent<Image>();
-                    h.emptyHeart = new GameObject($"Heart_{i}_Empty", typeof(Image)).GetComponent<Image>();
-
-                    h.anim = h.heart.GetComponent<Animator>();
-                    h.anim.runtimeAnimatorController = heartsAnimator;
-
-                    h.SetSprites(heartSprite);
-
-                    h.heart.transform.SetParent(parentHeartsUI);
-                    h.emptyHeart.transform.SetParent(parentHeartsUI);
-
-                    // Settings
-                    h.SetPos(heartsInitialPos * canvas.referencePixelsPerUnit, i, heartsSeparation * canvas.referencePixelsPerUnit);
-
-                    h.heart.SetNativeSize();
-                    h.emptyHeart.SetNativeSize();
-
-                    h.SetName(i);
-                }
             }
         }
 

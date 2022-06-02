@@ -50,6 +50,8 @@ public class ExplosiveBox : Box, IKinetic
         animator.SetBool("isHit", true);
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.ExplosionWindUp);
 
+        damageCooldown = damageDuration;
+
         Timer.CallOnDelay(() =>
         {
             explosion.Play();

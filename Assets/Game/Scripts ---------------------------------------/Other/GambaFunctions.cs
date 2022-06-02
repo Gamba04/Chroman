@@ -254,6 +254,17 @@ public class GambaFunctions : MonoBehaviour
 
     #endregion
 
+    #region Other
+
+    public static Color GetColorWithAlpha(Color color, float alpha)
+    {
+        color.a = alpha;
+
+        return color;
+    }
+
+    #endregion
+
     #region Editor
 
 #if UNITY_EDITOR
