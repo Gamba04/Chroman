@@ -50,6 +50,14 @@ public class Boss : MonoBehaviour
     [ReadOnly, SerializeField]
     protected Vector2 velocity;
 
+    [GambaHeader("Heals")]
+    [SerializeField]
+    private int stageHeals = 20;
+    [SerializeField]
+    private float healsRadius = 5;
+    [SerializeField]
+    private float healsSpeed = 5;
+
     protected float lastHealthDivision;
     protected float deathCounter;
 
@@ -279,7 +287,7 @@ public class Boss : MonoBehaviour
 
     protected virtual void OnStageChange(int newDivision)
     {
-        
+        GameManager.SpawnHealsAtPos(stageHeals, transform.position, healsRadius, healsSpeed);
     }
 
     #endregion

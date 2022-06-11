@@ -371,7 +371,6 @@ public class Boss1 : Boss, IHittable
     {
         int amountOfPatterns = System.Enum.GetValues(typeof(Boss1Pattern)).Length;
         Boss1Pattern newPattern = (Boss1Pattern)Random.Range(0, amountOfPatterns);
-        newPattern = Boss1Pattern.Dashing;
 
         int iters = 100;
         for (int i = 0; i < iters; i++)
@@ -809,7 +808,7 @@ public class Boss1 : Boss, IHittable
         moveSpeed = Mathf.Lerp(easySpeed, hardSpeed, difference / maxDifference);
         dashSpeed = Mathf.Lerp(easyDashSpeed, hardDashSpeed, difference / maxDifference);
         attackPreWarm = Mathf.Lerp(easyAttackPreWarm, hardAttackPreWarm, difference / maxDifference);
-        stunDuration = Mathf.Lerp(easyStunDuration, hardStunDuration, difference / maxDifference); //maybe return this to updatestatechange
+        stunDuration = Mathf.Lerp(easyStunDuration, hardStunDuration, difference / maxDifference); //maybe return this to updatestatechange'
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

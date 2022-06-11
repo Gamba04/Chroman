@@ -5117,6 +5117,9 @@ MonoBehaviour:
   camera: {fileID: 0}
   dead: 0
   velocity: {x: 0, y: 0}
+  stageHeals: 20
+  healsRadius: 5
+  healsSpeed: 5
   headAnim: {fileID: 703491809804710147}
   collider: {fileID: 4743332589050007103}
   saw: {fileID: 3607363877126583838}

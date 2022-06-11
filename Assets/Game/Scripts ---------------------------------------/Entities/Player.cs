@@ -79,6 +79,8 @@ public class Player : MonoBehaviour, IHittable
     [SerializeField]
     private float health;
     [SerializeField]
+    private bool startWithMaxHealth = true;
+    [SerializeField]
     private float meleeDamage;
     [SerializeField]
     private float bulletDamage;
@@ -229,7 +231,7 @@ public class Player : MonoBehaviour, IHittable
 
     public void Init()
     {
-        health = MaxHealth;
+        if (startWithMaxHealth) health = MaxHealth;
 
         if (unlockedColors < UnlockedColors) // Get from static
         {

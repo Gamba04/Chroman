@@ -576,6 +576,7 @@ public class GameManager : MonoBehaviour
         playerMaxHp = Player.MaxHealth;
 
         healthController.Init((int)playerMaxHp);
+        healthController.SetHealth((int)playerHp);
 
         UpdateColorHud();
 
