@@ -211,6 +211,8 @@ public class Boss1 : Boss, IHittable
     private float damageCooldown;
     private Color originalColor;
 
+    private System.Action onReset;
+
     protected override void Start()
     {
         base.Start();
@@ -369,6 +371,7 @@ public class Boss1 : Boss, IHittable
     {
         int amountOfPatterns = System.Enum.GetValues(typeof(Boss1Pattern)).Length;
         Boss1Pattern newPattern = (Boss1Pattern)Random.Range(0, amountOfPatterns);
+        newPattern = Boss1Pattern.Dashing;
 
         int iters = 100;
         for (int i = 0; i < iters; i++)
@@ -532,29 +535,21 @@ public class Boss1 : Boss, IHittable
         ChangeState(Boss1State.Idle);
         anim.SetTrigger("Attack");
         AudioPlayer.PlaySFX(AudioPlayer.SFXTag.BossDashWindUp);
+
         Timer.CallOnDelay(() =>
         {
             if (state != Boss1State.Stunned)
             {
                 StartDash(direction);
             }
-        }, attackPreWarm);
+        }, attackPreWarm, ref onReset, "Boss Start Dash");
+
         targetSawSpeed = sawSpeed_Dash;
     }
 
     private void DashAttack(Transform target)
     {
-        ChangeState(Boss1State.Idle);
-        anim.SetTrigger("Attack");
-        AudioPlayer.PlaySFX(AudioPlayer.SFXTag.BossDashWindUp);
-        Timer.CallOnDelay(() =>
-        {
-            if (state != Boss1State.Stunned)
-            {
-                StartDash(target.position - transform.position);
-            }
-        }, attackPreWarm);
-        targetSawSpeed = sawSpeed_Dash;
+        DashAttack(target.position - transform.position);
     }
 
     private void Stun()
@@ -610,7 +605,6 @@ public class Boss1 : Boss, IHittable
         {
             if (ActiveEnemies() < maxSpawnedEnemies) 
             {
-
                 GameObject newEnemy = Instantiate(meleeEnemyPrefab, transform.position, transform.rotation);
                 spawnedEnemies.Add(newEnemy);
 
@@ -669,6 +663,8 @@ public class Boss1 : Boss, IHittable
 
     public override void ResetBoss()
     {
+        onReset?.Invoke();
+
         base.ResetBoss();
 
         sawSpeed = 0;
@@ -681,6 +677,7 @@ public class Boss1 : Boss, IHittable
 
         DashExit();
         StunnedExit();
+        ChangeState(Boss1State.Idle);
         DestroySpawnedEnemies();
     }
 
