@@ -4873,7 +4873,7 @@ MonoBehaviour:
   aura: {fileID: 7257561945461446891}
   sprite: {fileID: 3542456512272847333}
   light: {fileID: 8374532827354097822}
-  deathDuration: 2
+  deathDuration: 1
   detectionRadius: 0.5
   onTrigger:
     m_PersistentCalls:
@@ -5208,6 +5208,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879714795182596751, guid: 1330beecbb779e94b92f71e272fd45b8,
+        type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8879714795182596751, guid: 1330beecbb779e94b92f71e272fd45b8,
         type: 3}

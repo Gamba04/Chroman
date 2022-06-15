@@ -51,7 +51,8 @@ public class LightingPostProcess : MonoBehaviour
         mainCamera.depthTextureMode = DepthTextureMode.DepthNormals;
 
         MaterialsSetup();
-        TexturesSetup();
+
+        StartCoroutine(Setup());
     }
 
     private void MaterialsSetup()
@@ -63,6 +64,13 @@ public class LightingPostProcess : MonoBehaviour
         blurShader = new Material(Shader.Find(path + "Blur"));
         bloomShader = new Material(Shader.Find(path + "Bloom"));
         inverseShader = new Material(Shader.Find(path + "InverseScreen"));
+    }
+
+    private IEnumerator Setup()
+    {
+        yield return new WaitForEndOfFrame();
+
+        TexturesSetup();
     }
 
     private void TexturesSetup()
