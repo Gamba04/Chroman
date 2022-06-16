@@ -52,7 +52,7 @@ public class LightingPostProcess : MonoBehaviour
 
         MaterialsSetup();
 
-        StartCoroutine(Setup());
+        StartCoroutine(LateSetup());
     }
 
     private void MaterialsSetup()
@@ -66,7 +66,7 @@ public class LightingPostProcess : MonoBehaviour
         inverseShader = new Material(Shader.Find(path + "InverseScreen"));
     }
 
-    private IEnumerator Setup()
+    private IEnumerator LateSetup()
     {
         yield return new WaitForEndOfFrame();
 

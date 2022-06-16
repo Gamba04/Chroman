@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthControllerUI : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class HealthControllerUI : MonoBehaviour
     private HealthCell cellPrefab;
     [SerializeField]
     private Transform cellsParent;
+    [SerializeField]
+    private RectTransform border;
 
     [Header("Settings")]
     [SerializeField]
     private float separation;
+    [SerializeField]
+    private float borderPadding;
 
     private List<HealthCell> healthCells = new List<HealthCell>();
 
@@ -21,10 +26,14 @@ public class HealthControllerUI : MonoBehaviour
     private int maxHealth;
     private float currentRegen;
 
+    private float borderOffsetWidth;
+
     #region Init
 
     public void Init(int maxHealth)
     {
+        borderOffsetWidth = border.sizeDelta.x;
+
         CreateCells(maxHealth);
     }
 
@@ -78,6 +87,8 @@ public class HealthControllerUI : MonoBehaviour
 
         health++;
         SetHealth(health);
+
+        UpdateBorder();
     }
 
     public void ReduceMaxHealth()
@@ -88,6 +99,8 @@ public class HealthControllerUI : MonoBehaviour
         Destroy(cell);
 
         maxHealth--;
+
+        UpdateBorder();
     }
 
     public void SetRegen(float value)
@@ -121,12 +134,26 @@ public class HealthControllerUI : MonoBehaviour
                     ReduceMaxHealth();
                 }
             }
+
         }
     }
 
     public void SetAlpha(float alpha)
     {
         foreach (HealthCell cell in healthCells) cell.SetAlpha(alpha);
+    }
+
+    #endregion
+
+    // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    #region Other
+
+    private void UpdateBorder()
+    {
+        float borderWidth = borderOffsetWidth + (separation + borderPadding) * (maxHealth - 1);
+
+        border.sizeDelta = new Vector2(borderWidth, border.sizeDelta.y);
     }
 
     #endregion
