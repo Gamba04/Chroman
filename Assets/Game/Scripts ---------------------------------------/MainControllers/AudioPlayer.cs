@@ -388,7 +388,7 @@ public class AudioPlayer : MonoBehaviour
         {
             CacheSFX cache = cacheSFX[i];
 
-            Timer.ReduceCooldown(ref cache.timer, () => cacheSFX.Remove(cache));
+            Timer.ReduceCooldownUnscaled(ref cache.timer, () => cacheSFX.Remove(cache));
         }
     }
 
