@@ -862,6 +862,7 @@ public class GameManager : MonoBehaviour
 
     public static void SetPause(bool value)
     {
+        print($"pause {value}");
         GamePaused = value;
 
         if (value)

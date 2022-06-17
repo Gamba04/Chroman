@@ -30,7 +30,7 @@ public class Transition
         unscaled = false;
         this.onTransitionEnd = onTransitionEnd;
 
-        if (duration > 0)
+        if (duration > 0 && targetValue != value)
         {
             isOnTransition = true;
             transitionCooldown = duration;
@@ -49,7 +49,7 @@ public class Transition
         unscaled = true;
         this.onTransitionEnd = onTransitionEnd;
 
-        if (duration > 0)
+        if (duration > 0 && targetValue != value)
         {
             isOnTransition = true;
             transitionCooldown = duration;
@@ -69,7 +69,7 @@ public class Transition
         inverseCurve = inverse;
         this.onTransitionEnd = onTransitionEnd;
 
-        if (duration > 0)
+        if (duration > 0 && targetValue != value)
         {
             isOnTransition = true;
             transitionCooldown = duration;
@@ -89,7 +89,7 @@ public class Transition
         inverseCurve = inverse;
         this.onTransitionEnd = onTransitionEnd;
 
-        if (duration > 0)
+        if (duration > 0 && targetValue != value)
         {
             isOnTransition = true;
             transitionCooldown = duration;
