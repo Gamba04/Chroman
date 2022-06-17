@@ -12,7 +12,7 @@ public class HealthControllerUI : MonoBehaviour
     [SerializeField]
     private Transform cellsParent;
     [SerializeField]
-    private RectTransform border;
+    private Image border;
 
     [Header("Settings")]
     [SerializeField]
@@ -32,7 +32,7 @@ public class HealthControllerUI : MonoBehaviour
 
     public void Init(int maxHealth)
     {
-        borderOffsetWidth = border.sizeDelta.x;
+        borderOffsetWidth = border.rectTransform.sizeDelta.x;
 
         CreateCells(maxHealth);
     }
@@ -77,6 +77,7 @@ public class HealthControllerUI : MonoBehaviour
     public void IncreaseMaxHealth()
     {
         HealthCell cell = Instantiate(cellPrefab, cellsParent);
+        cell.Init();
         cell.name = cellPrefab.name;
 
         cell.transform.localPosition = Vector3.right * maxHealth * separation;
@@ -141,6 +142,11 @@ public class HealthControllerUI : MonoBehaviour
     public void SetAlpha(float alpha)
     {
         foreach (HealthCell cell in healthCells) cell.SetAlpha(alpha);
+
+        Color borderColor = border.color;
+        borderColor.a = alpha;
+
+        border.color = borderColor;
     }
 
     #endregion
@@ -153,7 +159,7 @@ public class HealthControllerUI : MonoBehaviour
     {
         float borderWidth = borderOffsetWidth + (separation + borderPadding) * (maxHealth - 1);
 
-        border.sizeDelta = new Vector2(borderWidth, border.sizeDelta.y);
+        border.rectTransform.sizeDelta = new Vector2(borderWidth, border.rectTransform.sizeDelta.y);
     }
 
     #endregion

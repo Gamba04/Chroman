@@ -15,7 +15,14 @@ public class HealthCell : MonoBehaviour
     [SerializeField]
     private Sprite emptySprite;
 
+    private float regenAlpha;
+
     #region Public Methods
+
+    public void Init()
+    {
+        regenAlpha = regenImage.color.a;
+    }
 
     public void SetState(bool value)
     {
@@ -30,7 +37,7 @@ public class HealthCell : MonoBehaviour
     public void SetAlpha(float alpha)
     {
         cellImage.color = GambaFunctions.GetColorWithAlpha(cellImage.color, alpha);
-        regenImage.color = GambaFunctions.GetColorWithAlpha(regenImage.color, alpha);
+        regenImage.color = GambaFunctions.GetColorWithAlpha(regenImage.color, alpha * regenAlpha);
     }
 
     #endregion

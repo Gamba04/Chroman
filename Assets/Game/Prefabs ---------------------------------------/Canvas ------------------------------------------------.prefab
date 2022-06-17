@@ -236,7 +236,7 @@ MonoBehaviour:
   cellPrefab: {fileID: 4868042920839152315, guid: 27c3989b2672c0a4dac4ab8d27f77536,
     type: 3}
   cellsParent: {fileID: 1958808318044025613}
-  border: {fileID: 333150196105750908}
+  border: {fileID: 18309411767533949}
   separation: 80
   borderPadding: 8
 --- !u!1 &3597688942007528580
