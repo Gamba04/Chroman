@@ -26,6 +26,7 @@ public class LightingPostProcess : MonoBehaviour
     private RenderTexture lightsRender;
     private RenderTexture occlusionTexture;
     private RenderTexture resultImage;
+    private RenderTexture resultImage2;
     private RenderTexture resultCopy;
 
     private Camera mainCamera;
@@ -79,6 +80,7 @@ public class LightingPostProcess : MonoBehaviour
         occlusionTexture.format = RenderTextureFormat.DefaultHDR;
 
         resultImage = new RenderTexture(occlusionTexture);
+        resultImage2 = new RenderTexture(occlusionTexture);
         resultCopy = new RenderTexture(occlusionTexture);
         lightsRender = new RenderTexture(occlusionTexture);
             
@@ -172,8 +174,10 @@ public class LightingPostProcess : MonoBehaviour
 
                     // Blur
                     Graphics.Blit(source, resultImage, postProcessShader);
-                    Graphics.Blit(resultImage, destination, blurShader);
-                    Graphics.Blit(destination, resultCopy);
+                    Graphics.Blit(resultImage, resultImage2, blurShader);
+
+                    Graphics.Blit(resultImage2, resultCopy);
+                    Graphics.Blit(resultImage2, destination);
                 }
                 else
                 {
@@ -183,8 +187,10 @@ public class LightingPostProcess : MonoBehaviour
             else
             {
                 // Main Behaviour
-                Graphics.Blit(source, destination, postProcessShader);
-                Graphics.Blit(destination, resultCopy);
+                Graphics.Blit(source, resultImage, postProcessShader);
+                
+                Graphics.Blit(resultImage, resultCopy);
+                Graphics.Blit(resultImage, destination);
             }
         }
         else
@@ -230,17 +236,6 @@ public class LightingPostProcess : MonoBehaviour
 
             generateBlur = true;
         }
-    }
-
-    public void SetTexturesSize(Vector2 newSize)
-    {
-        occlusionTexture = new RenderTexture(Mathf.RoundToInt(newSize.x), Mathf.RoundToInt(newSize.y), 0);
-
-        resultImage = new RenderTexture(occlusionTexture);
-        resultCopy = new RenderTexture(occlusionTexture);
-        lightsRender = new RenderTexture(occlusionTexture);
-
-        lightsCamera.targetTexture = lightsRender;
     }
 
     #endregion
